@@ -1,0 +1,12 @@
+@startuml
+enum Piece_color{
+    BLACK
+    WHITE
+}
+
+abstract class ChessPiece {
+    - color: Piece_Color
+    + ChessPiece(color: Piece_Color)
+    + {abstract} my_color():Piece_Color
+}
+@enduml
