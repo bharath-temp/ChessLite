@@ -2,7 +2,7 @@ import unittest
 from src.pieces.king import King
 from src.utils.colors import Piece_Color
 
-class TestChessPieces(unittest.TestCase):
+class TestKingPiece(unittest.TestCase):
     def test_king_initialization(self):
         """Test that the King class is initialized with the correct color."""
         king = King()
