@@ -2,8 +2,6 @@
 
 current_time=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
-ls -l >> $LOG_FILE
-
 if [ -z "$1" ]; then
     echo "$current_time - No input file provided." >> error.log
     exit 1
