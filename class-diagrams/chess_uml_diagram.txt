@@ -1,12 +1,61 @@
 @startuml
-enum Piece_color{
+enum PieceColor{
     BLACK
     WHITE
 }
 
-abstract class ChessPiece {
-    - color: Piece_Color
-    + ChessPiece(color: Piece_Color)
-    + {abstract} my_color():Piece_Color
+Piece <|-- Pawn
+Piece <|-- Rook
+Piece <|-- Knight
+Piece <|-- Bishop
+Piece <|-- King
+Piece <|-- Queen
+
+abstract class Piece {
+    - color : PieceColor
+    - current_row : int
+    - current_col : int
+    # Piece(color: PieceColor, current_row: int, current_col: int)
+    # out_of_bound_check(row: int, col: int) : bool
+    + {abstract} get_color() : PieceColor
+    + {abstract} get_row() : int
+    + {abstract} get_col() : int
+}
+
+class Pawn {
+    + has_moved : bool
+    + has_promoted : bool
+    - can_promote() : bool
+    - promote()
+    - __init__(color: PieceColor, current_row: int, current_col: int)
+    + {static} create_pawn(color: PieceColor, current_row: int, current_col: int)
+}
+
+class Rook {
+    + has_moved : bool
+    - __init__(color: PieceColor, current_row: int, current_col: int)
+    + {static} create_rook(color: PieceColor, current_row: int, current_col: int)
+}
+
+class Knight {
+    - __init__(color: PieceColor, current_row: int, current_col: int)
+    + {static} create_knight(color: PieceColor, current_row: int, current_col: int)
+}
+
+class Bishop {
+    - __init__(color: PieceColor, current_row: int, current_col: int)
+    + {static} create_bishop(color: PieceColor, current_row: int, current_col: int)
+}
+
+class King {
+    + has_moved : bool
+    + has_castled : bool
+    - __init__(color: PieceColor, current_row: int, current_col: int)
+    + {static} create_king(color: PieceColor, current_row: int, current_col: int)
+}
+
+class Queen {
+    - __init__(color: PieceColor, current_row: int, current_col: int)
+    + {static} create_queen(color: PieceColor, current_row: int, current_col: int)
 }
 @enduml
