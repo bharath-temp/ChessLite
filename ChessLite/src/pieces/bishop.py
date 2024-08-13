@@ -1,4 +1,4 @@
-# allows python interpreter to defer evaluation of King type to the future
+# allows python interpreter to defer evaluation of Bishop type to the future
 from __future__ import annotations
 
 from typing import override
@@ -7,16 +7,15 @@ from src.pieces.chesspiece import Piece
 from src.utils.colors import PieceColor
 
 
-class King(Piece):
+class Bishop(Piece):
     def __init__(self, color: PieceColor, current_row: int, current_col: int):
         super().__init__(color, current_row, current_col)
-        self._moved = False
 
-    # Factory method to create king piece
+    # Factory method to create Bishop piece
     @staticmethod
-    def create_king(color: PieceColor, current_row: int,
-                    current_col: int) -> King:
-        return King(color, current_row, current_col)
+    def create_bishop(color: PieceColor, current_row: int,
+                      current_col: int) -> Bishop:
+        return Bishop(color, current_row, current_col)
 
     @override
     def get_color(self) -> PieceColor:
@@ -30,15 +29,7 @@ class King(Piece):
     def get_column(self) -> int:
         return self._current_col
 
-    def get_moved(self) -> bool:
-        return self._moved
-
-    def set_moved(self) -> None:
-        self._moved = True
-
-        return None
-
-    def _is_valid_king_move(self, dest_row: int, dest_col: int) -> bool:
+    def _is_valid_bishop_move(self, dest_row: int, dest_col: int) -> bool:
         if not super()._is_valid_move(dest_row, dest_col):
             return False
 
