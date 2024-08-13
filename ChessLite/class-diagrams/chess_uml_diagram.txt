@@ -1,20 +1,20 @@
 @startuml
+left to right direction
+
 enum PieceColor{
     BLACK
     WHITE
 }
 
-Piece <|-- Pawn
-Piece <|-- Rook
-Piece <|-- Knight
-Piece <|-- Bishop
-Piece <|-- King
-Piece <|-- Queen
+enum PlayerType{
+    HUMAN
+    AI
+}
 
 abstract class Piece {
-    - color : PieceColor
-    - current_row : int
-    - current_col : int
+    # _color : PieceColor
+    # _current_row : int
+    # _current_col : int
     - __init__(color: PieceColor, current_row: int, current_col: int)
     # out_of_bound_check(row: int, col: int) : bool
     # _is_valid_move(dest_row: int, dest_col: int) : bool
@@ -68,4 +68,34 @@ class Queen {
     + {static} create_queen(color: PieceColor, current_row: int, current_col: int)
     # _is_valid_queen_move(dest_row: int, dest_col: int) : bool
 }
+
+Piece <|-- Pawn
+Piece <|-- Rook
+Piece <|-- Knight
+Piece <|-- Bishop
+Piece <|-- King
+Piece <|-- Queen
+
+abstract class Player {
+    # _player_type : PlayerType
+    # _color : PieceColor
+    # _name : string
+    - __init__(player_type: PlayerType, color: PieceColor, name: string)
+    + {abstract} get_player_type() : PlayerType
+    + {abstract} get_color() : PieceColor
+    + {abstract} get_name() : string
+}
+
+class HumanPlayer {
+    - __init__(player_type: PlayerType, color: PieceColor, name: string)
+    + {static} create_human_player(color: PieceColor, name: string)
+}
+
+class AIPlayer {
+    - __init__(player_type: PlayerType, color: PieceColor, name: string)
+    + {static} create_ai_player(color: PieceColor, name: string)
+}
+
+Player <|-- HumanPlayer
+Player <|-- AIPlayer
 @enduml
