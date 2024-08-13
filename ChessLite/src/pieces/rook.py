@@ -1,4 +1,4 @@
-# allows python interpreter to defer evaluation of King type to the future
+# allows python interpreter to defer evaluation of Rook type to the future
 from __future__ import annotations
 
 from typing import override
@@ -7,16 +7,16 @@ from src.pieces.chesspiece import Piece
 from src.utils.colors import PieceColor
 
 
-class King(Piece):
+class Rook(Piece):
     def __init__(self, color: PieceColor, current_row: int, current_col: int):
         super().__init__(color, current_row, current_col)
         self._moved = False
 
-    # Factory method to create king piece
+    # Factory method to create Rook piece
     @staticmethod
-    def create_king(color: PieceColor, current_row: int,
-                    current_col: int) -> King:
-        return King(color, current_row, current_col)
+    def create_rook(color: PieceColor, current_row: int,
+                    current_col: int) -> Rook:
+        return Rook(color, current_row, current_col)
 
     @override
     def get_color(self) -> PieceColor:
@@ -38,7 +38,7 @@ class King(Piece):
 
         return None
 
-    def _is_valid_king_move(self, dest_row: int, dest_col: int) -> bool:
+    def _is_valid_rook_move(self, dest_row: int, dest_col: int) -> bool:
         if not super()._is_valid_move(dest_row, dest_col):
             return False
 
