@@ -1,6 +1,8 @@
 import unittest
+
 from src.pieces.king import King
 from src.utils.colors import Piece_Color
+
 
 class TestKingPiece(unittest.TestCase):
     def test_king_initialization(self):
@@ -13,6 +15,7 @@ class TestKingPiece(unittest.TestCase):
         """Test the my_color method of the King class."""
         king = King()
         self.assertEqual(king.my_color(), Piece_Color.WHITE)
+
 
 if __name__ == '__main__':
     unittest.main()

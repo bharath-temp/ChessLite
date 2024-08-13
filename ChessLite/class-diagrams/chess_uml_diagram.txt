@@ -15,8 +15,9 @@ abstract class Piece {
     - color : PieceColor
     - current_row : int
     - current_col : int
-    # Piece(color: PieceColor, current_row: int, current_col: int)
+    - __init__(color: PieceColor, current_row: int, current_col: int)
     # out_of_bound_check(row: int, col: int) : bool
+    # is_valid_move(dest_row: int, dest_col: int) : bool
     + {abstract} get_color() : PieceColor
     + {abstract} get_row() : int
     + {abstract} get_col() : int
@@ -29,22 +30,26 @@ class Pawn {
     - promote()
     - __init__(color: PieceColor, current_row: int, current_col: int)
     + {static} create_pawn(color: PieceColor, current_row: int, current_col: int)
+    - is_valid_pawn_move(dest_row: int, dest_col: int) : bool
 }
 
 class Rook {
     + has_moved : bool
     - __init__(color: PieceColor, current_row: int, current_col: int)
     + {static} create_rook(color: PieceColor, current_row: int, current_col: int)
+    - is_valid_rook_move(dest_row: int, dest_col: int) : bool
 }
 
 class Knight {
     - __init__(color: PieceColor, current_row: int, current_col: int)
     + {static} create_knight(color: PieceColor, current_row: int, current_col: int)
+    - is_valid_knight_move(dest_row: int, dest_col: int) : bool
 }
 
 class Bishop {
     - __init__(color: PieceColor, current_row: int, current_col: int)
     + {static} create_bishop(color: PieceColor, current_row: int, current_col: int)
+    - is_valid_bishop_move(dest_row: int, dest_col: int) : bool
 }
 
 class King {
@@ -52,10 +57,12 @@ class King {
     + has_castled : bool
     - __init__(color: PieceColor, current_row: int, current_col: int)
     + {static} create_king(color: PieceColor, current_row: int, current_col: int)
+    - is_valid_king_move(dest_row: int, dest_col: int) : bool
 }
 
 class Queen {
     - __init__(color: PieceColor, current_row: int, current_col: int)
     + {static} create_queen(color: PieceColor, current_row: int, current_col: int)
+    - is_valid_queen_move(dest_row: int, dest_col: int) : bool
 }
 @enduml
