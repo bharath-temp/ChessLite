@@ -29,8 +29,7 @@ class King(Piece):
     def get_column(self) -> int:
         return self._current_col
 
-    @override
-    def __is_valid_king_move(self, dest_row: int, dest_col: int) -> bool:
+    def _is_valid_king_move(self, dest_row: int, dest_col: int) -> bool:
         if not super()._is_valid_move(dest_row, dest_col):
             return False
 
