@@ -22,10 +22,9 @@ class Piece(ABC):
     def get_column(self) -> int:
         pass
 
-    def _in_bounds_check(self, row: int, col: int) -> bool:
+    def __in_bounds_check(self, row: int, col: int) -> bool:
         return ((0 <= row < 8) and (0 <= col < 8))
 
-    @abstractmethod
     def _is_valid_move(self, dest_row: int, dest_col: int) -> bool:
         if (
             not self._in_bounds_check(dest_row, dest_col)
