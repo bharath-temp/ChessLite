@@ -6,9 +6,13 @@ authors = ["Bharath Padmaraju <bharath.k.padmaraju@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
-pygame = "^2.5.2"
+python = "^3.12"
 
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.2"
+
+[tool.poetry.group.dev.dependencies]
+pycodestyle = "^2.12.1"
 
 [build-system]
 requires = ["poetry-core"]
