@@ -42,3 +42,22 @@ def test_king_get_row_method(king_test):
 def test_king_get_col_method(king_test):
     """Test the get_col method of the King class."""
     assert king_test.get_column() == 1
+
+
+def test_king_set_row_method(king_test):
+    """Test the set_row method of the King class."""
+    king_test.set_row(2)
+    assert king_test.get_row() == 2
+
+
+def test_king_set_col_method(king_test):
+    """Test the set_column method of the King class."""
+    king_test.set_column(3)
+    assert king_test.get_column() == 3
+
+
+def test_king_set_moved_method(king_test):
+    """Test the set_moved method of the King class."""
+    assert not king_test.get_moved()  # Initially should be False
+    king_test.set_moved()
+    assert king_test.get_moved()  # After setting should be True

@@ -40,5 +40,17 @@ def test_bishop_get_row_method(bishop_test):
 
 
 def test_bishop_get_col_method(bishop_test):
-    """Test the get_col method of the bishop class."""
+    """Test the get_col method of the Bishop class."""
     assert bishop_test.get_column() == 1
+
+
+def test_bishop_set_row_method(bishop_test):
+    """Test the set_row method of the Bishop class."""
+    bishop_test.set_row(2)
+    assert bishop_test.get_row() == 2
+
+
+def test_bishop_set_col_method(bishop_test):
+    """Test the set_column method of the Bishop class."""
+    bishop_test.set_column(3)
+    assert bishop_test.get_column() == 3

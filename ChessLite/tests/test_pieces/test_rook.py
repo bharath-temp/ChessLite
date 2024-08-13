@@ -42,3 +42,22 @@ def test_rook_get_row_method(rook_test):
 def test_rook_get_col_method(rook_test):
     """Test the get_col method of the rook class."""
     assert rook_test.get_column() == 1
+
+
+def test_rook_set_row_method(rook_test):
+    """Test the set_row method of the Rook class."""
+    rook_test.set_row(2)
+    assert rook_test.get_row() == 2
+
+
+def test_rook_set_col_method(rook_test):
+    """Test the set_column method of the Rook class."""
+    rook_test.set_column(3)
+    assert rook_test.get_column() == 3
+
+
+def test_rook_set_moved_method(rook_test):
+    """Test the set_moved method of the Rook class."""
+    assert not rook_test.get_moved()  # Initially should be False
+    rook_test.set_moved()
+    assert rook_test.get_moved()  # After setting should be True
