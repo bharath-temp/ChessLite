@@ -42,3 +42,15 @@ def test_queen_get_row_method(queen_test):
 def test_queen_get_col_method(queen_test):
     """Test the get_col method of the queen class."""
     assert queen_test.get_column() == 1
+
+
+def test_queen_set_row_method(queen_test):
+    """Test the set_row method of the queen class."""
+    queen_test.set_row(2)
+    assert queen_test.get_row() == 2
+
+
+def test_queen_set_col_method(queen_test):
+    """Test the set_column method of the queen class."""
+    queen_test.set_column(3)
+    assert queen_test.get_column() == 3

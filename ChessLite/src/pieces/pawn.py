@@ -8,37 +8,86 @@ from src.utils.colors import PieceColor
 
 
 class Pawn(Piece):
+    """
+    Represents a Pawn chess piece.
+
+    Attributes:
+        _color (PieceColor): The color of the piece.
+        _current_row (int): The current row position of the piece.
+        _current_col (int): The current column position of the piece.
+        _moved (bool): Tracks if the Pawn has moved.
+    """
+
     def __init__(self, color: PieceColor, current_row: int, current_col: int):
+        """
+        Initializes a Pawn piece with the specified color and position.
+
+        Args:
+            color (PieceColor): The color of the piece.
+            current_row (int): The initial row position of the piece.
+            current_col (int): The initial column position of the piece.
+        """
         super().__init__(color, current_row, current_col)
         self._moved = False
 
-    # Factory method to create Pawn piece
     @staticmethod
     def create_pawn(color: PieceColor, current_row: int,
                     current_col: int) -> Pawn:
+        """
+        Factory method to create a Pawn piece.
+
+        Args:
+            color (PieceColor): The color of the piece.
+            current_row (int): The row position to place the Pawn.
+            current_col (int): The column position to place the Pawn.
+
+        Returns:
+            Pawn: A new Pawn instance.
+        """
         return Pawn(color, current_row, current_col)
 
     @override
     def get_color(self) -> PieceColor:
+        """See base class."""
         return self._color
 
     @override
     def get_row(self) -> int:
+        """See base class."""
         return self._current_row
 
     @override
     def get_column(self) -> int:
+        """See base class."""
         return self._current_col
 
     def get_moved(self) -> bool:
+        """Returns True if King has moved"""
         return self._moved
 
+    @override
+    def set_row(self, dest_row: int) -> None:
+        """See base class."""
+        self._current_row = dest_row
+
+    @override
+    def set_column(self, dest_col: int) -> None:
+        """See base class."""
+        self._current_col = dest_col
+
     def set_moved(self) -> None:
+        """Marks the Pawn as having moved."""
         self._moved = True
 
-        return None
-
     def _can_promote(self) -> bool:
+        """
+        Checks if the Pawn can be promoted.
+
+        A Pawn can be promoted if it reaches the opposite end of the board.
+
+        Returns:
+            bool: True if the Pawn can be promoted, False otherwise.
+        """
         color = self.get_color()
         curr_row = self.get_row()
 
@@ -50,6 +99,16 @@ class Pawn(Piece):
         return False
 
     def _is_valid_pawn_move(self, dest_row: int, dest_col: int) -> bool:
+        """
+        Checks if the move to the destination is valid for the Pawn.
+
+        Args:
+            dest_row (int): The destination row position.
+            dest_col (int): The destination column position.
+
+        Returns:
+            bool: True if the move is valid, False otherwise.
+        """
         if not super()._is_valid_move(dest_row, dest_col):
             return False
 
@@ -60,17 +119,21 @@ class Pawn(Piece):
         row_change = abs(curr_row - dest_row)
         col_change = abs(curr_col - dest_col)
 
+        # Pawns can only move forward in the direction respective to color
         if (color == PieceColor.WHITE) and (dest_row - curr_row < 1):
             return False
         if (color == PieceColor.BLACK) and (dest_row - curr_row > -1):
             return False
 
+        # Pawns can move forward 1 square, standard move
         if (row_change == 1) and (col_change == 0):
             return True
 
+        # Pawns can move forward two squares if it hasn't moved yet.
         if (row_change == 2) and (col_change == 0) and (moved is False):
             return True
 
+        # Pawns can move diagonally to take enemy piece or via en pessant
         if (row_change == 1) and (col_change == 1):
             return True
 

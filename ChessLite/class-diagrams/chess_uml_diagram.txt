@@ -21,6 +21,8 @@ abstract class Piece {
     + {abstract} get_color() : PieceColor
     + {abstract} get_row() : int
     + {abstract} get_col() : int
+    + {abstract} set_row() : None
+    + {abstract} set_col() : None
 }
 
 class Pawn {
