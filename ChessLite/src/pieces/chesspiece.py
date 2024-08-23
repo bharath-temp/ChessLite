@@ -4,8 +4,7 @@ from src.utils.colors import PieceColor
 
 
 class Piece(ABC):
-    """
-    Abstract base class for a chess piece.
+    """Abstract base class for a chess piece.
 
     Attributes:
         _color (PieceColor): The color of the piece.
@@ -15,8 +14,7 @@ class Piece(ABC):
 
     def __init__(self, color: PieceColor, current_row: int,
                  current_col: int) -> None:
-        """
-        Initializes a chess piece with the specified color and position.
+        """Initializes a chess piece with the specified color and position.
 
         Args:
             color (PieceColor): The color of the piece.
@@ -27,34 +25,73 @@ class Piece(ABC):
         self._current_row = current_row
         self._current_col = current_col
 
-    @abstractmethod
-    def get_color(self) -> PieceColor:
-        """Returns the color of the Piece."""
+    @property
+    def color(self) -> PieceColor:
+        """The color of the piece.
+
+        Returns:
+            PieceColor: The color of the piece.
+        """
+        return self._color
+
+    @property
+    def row(self) -> int:
+        """The current row of the piece.
+
+        Returns:
+            int: The current row of the piece.
+        """
+        return self._current_row
+
+    @row.setter
+    def row(self, dest_row: int) -> None:
+        """Updates the current row of the piece.
+
+        Args:
+            dest_row (int): The new row position for the piece.
+        """
+        self._current_row = dest_row
+
+    @property
+    def column(self) -> int:
+        """The current column of the piece.
+
+        Returns:
+            int: The current column of the piece.
+        """
+        return self._current_col
+
+    @column.setter
+    def column(self, dest_col: int) -> None:
+        """Updates the current column of the piece.
+
+        Args:
+            dest_col (int): The new column position for the piece.
+        """
+        self._current_col = dest_col
+
+    def _on_position_changed(self) -> None:
+        """Hook method called when the piece's position changes.
+
+           Intended to be overridden by subclasses or mixins that need
+           to perform actions when the position is updated.
+        """
         pass
 
-    @abstractmethod
-    def get_row(self) -> int:
-        """Returns the current row of the Piece."""
-        pass
+    def set_position(self, dest_row: int, dest_col: int) -> None:
+        """Updates the position of the piece, invokes the on position changed
+           method.
 
-    @abstractmethod
-    def get_column(self) -> int:
-        """Returns the current column of the Piece."""
-        pass
-
-    @abstractmethod
-    def set_row(self, dest_row: int) -> None:
-        """Sets the current row of the piece."""
-        pass
-
-    @abstractmethod
-    def set_column(self, dest_col: int) -> None:
-        """Sets the current column of the piece."""
-        pass
+        Args:
+            dest_row (int): The new row position.
+            dest_col (int): The new column position.
+        """
+        self._current_row = dest_row
+        self._current_col = dest_col
+        self._on_position_changed()
 
     def __in_bounds_check(self, row: int, col: int) -> bool:
-        """
-        Checks if the given position is within the bounds of the chessboard.
+        """Checks if the given position is within the bounds of the chessboard.
 
         Args:
             row (int): The row position to check.
@@ -66,8 +103,7 @@ class Piece(ABC):
         return ((0 <= row < 8) and (0 <= col < 8))
 
     def _is_valid_move(self, dest_row: int, dest_col: int) -> bool:
-        """
-        Checks if the move to the destination is valid.
+        """Checks if the move to the destination is valid.
 
         Args:
             dest_row (int): The destination row position.
@@ -77,7 +113,7 @@ class Piece(ABC):
             bool: True if the move is valid, False otherwise.
         """
         '''
-        All pieces must stay in bounds on the boardand can't move to the
+        All pieces must stay in bounds on the board and can't move to the
         same location
         '''
         if (

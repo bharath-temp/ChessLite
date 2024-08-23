@@ -11,5 +11,6 @@ def test_ai_player_factory_method():
     assert ai_player.player_type == PlayerType.AI
     assert ai_player.color == PieceColor.BLACK
     assert ai_player.name == (
-        f"{ai_player.player_type.name.lower()}_{ai_player.color.name.lower()}"
+        f"{ai_player.player_type.name.lower()}_"
+        f"{ai_player.color.name.lower()}"
     )

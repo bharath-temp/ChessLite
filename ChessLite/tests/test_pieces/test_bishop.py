@@ -8,9 +8,9 @@ def test_bishop_factory_method():
     """Test the create_bishop factory method."""
     bishop = Bishop.create_bishop(PieceColor.BLACK, 0, 4)
     assert isinstance(bishop, Bishop)
-    assert bishop.get_color() == PieceColor.BLACK
-    assert bishop.get_row() == 0
-    assert bishop.get_column() == 4
+    assert bishop.color == PieceColor.BLACK
+    assert bishop.row == 0
+    assert bishop.column == 4
 
 
 @pytest.fixture
@@ -30,27 +30,27 @@ def test_bishop_initialization(bishop_test):
 
 def test_bishop_get_color_method(bishop_test):
     """Test the get_color method of the bishop class."""
-    assert bishop_test.get_color() == PieceColor.WHITE
-    assert bishop_test.get_color() != PieceColor.BLACK
+    assert bishop_test.color == PieceColor.WHITE
+    assert bishop_test.color != PieceColor.BLACK
 
 
 def test_bishop_get_row_method(bishop_test):
     """Test the get_row method of the bishop class."""
-    assert bishop_test.get_row() == 1
+    assert bishop_test.row == 1
 
 
 def test_bishop_get_col_method(bishop_test):
     """Test the get_col method of the Bishop class."""
-    assert bishop_test.get_column() == 1
+    assert bishop_test.column == 1
 
 
 def test_bishop_set_row_method(bishop_test):
     """Test the set_row method of the Bishop class."""
-    bishop_test.set_row(2)
-    assert bishop_test.get_row() == 2
+    bishop_test.row = 2
+    assert bishop_test.row == 2
 
 
 def test_bishop_set_col_method(bishop_test):
     """Test the set_column method of the Bishop class."""
-    bishop_test.set_column(3)
-    assert bishop_test.get_column() == 3
+    bishop_test.column = 3
+    assert bishop_test.column == 3

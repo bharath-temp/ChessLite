@@ -8,8 +8,7 @@ from src.utils.colors import PieceColor
 
 
 class Queen(Piece):
-    """
-    Represents a Queen chess piece.
+    """Represents a Queen chess piece.
 
     Attributes:
         _color (PieceColor): The color of the piece.
@@ -18,8 +17,7 @@ class Queen(Piece):
     """
 
     def __init__(self, color: PieceColor, current_row: int, current_col: int):
-        """
-        Initializes a Queen piece with the specified color and position.
+        """Initializes a Queen piece with the specified color and position.
 
         Args:
             color (PieceColor): The color of the piece.
@@ -31,8 +29,7 @@ class Queen(Piece):
     @staticmethod
     def create_queen(color: PieceColor, current_row: int,
                      current_col: int) -> Queen:
-        """
-        Factory method to create a Queen piece.
+        """Factory method to create a Queen piece.
 
         Args:
             color (PieceColor): The color of the piece.
@@ -44,34 +41,8 @@ class Queen(Piece):
         """
         return Queen(color, current_row, current_col)
 
-    @override
-    def get_color(self) -> PieceColor:
-        """See base class."""
-        return self._color
-
-    @override
-    def get_row(self) -> int:
-        """See base class."""
-        return self._current_row
-
-    @override
-    def get_column(self) -> int:
-        """See base class."""
-        return self._current_col
-
-    @override
-    def set_row(self, dest_row: int) -> None:
-        """See base class."""
-        self._current_row = dest_row
-
-    @override
-    def set_column(self, dest_col: int) -> None:
-        """See base class."""
-        self._current_col = dest_col
-
     def _is_valid_queen_move(self, dest_row: int, dest_col: int) -> bool:
-        """
-        Checks if the move to the destination is valid for the Queen.
+        """Checks if the move to the destination is valid for the Queen.
 
         The Queen can move diagonally, vertically, or horizontally. The move
         is valid if the row and column changes are either equal (diagonal)
@@ -87,11 +58,8 @@ class Queen(Piece):
         if not super()._is_valid_move(dest_row, dest_col):
             return False
 
-        curr_row = self.get_row()
-        curr_col = self.get_column()
-
-        row_change = abs(curr_row - dest_row)
-        col_change = abs(curr_col - dest_col)
+        row_change = abs(self.row - dest_row)
+        col_change = abs(self.col - dest_col)
 
         # Queens can move diagonally or vertically or horizontally
         if (row_change == col_change):

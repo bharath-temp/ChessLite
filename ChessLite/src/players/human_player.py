@@ -7,8 +7,7 @@ from src.utils.colors import PieceColor
 
 
 class HumanPlayer(Player):
-    """
-    A class representing a human player in a chess game.
+    """A class representing a human player in a chess game.
 
     Inherits from the Player abstract base class and implements the properties
     specific to a human player.
@@ -20,8 +19,8 @@ class HumanPlayer(Player):
     """
 
     def __init__(self, color: PieceColor, name: str = None) -> None:
-        """
-        Initializes a human player with the specified color and optional name.
+        """Initializes a human player with the specified color and optional
+           name.
 
         Args:
             color (PieceColor): The color of the human player's pieces.
@@ -34,8 +33,7 @@ class HumanPlayer(Player):
     @staticmethod
     def create_human_player(color: PieceColor,
                             name: str = None) -> HumanPlayer:
-        """
-        Factory method to create a human player.
+        """Factory method to create a human player.
 
         Args:
             color (PieceColor): The color of the human player's pieces.

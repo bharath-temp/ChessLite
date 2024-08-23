@@ -8,8 +8,7 @@ from src.utils.colors import PieceColor
 
 
 class Knight(Piece):
-    """
-    Represents a Knight chess piece.
+    """Represents a Knight chess piece.
 
     Attributes:
         _color (PieceColor): The color of the piece.
@@ -18,8 +17,7 @@ class Knight(Piece):
     """
 
     def __init__(self, color: PieceColor, current_row: int, current_col: int):
-        """
-        Initializes a Knight piece with the specified color and position.
+        """Initializes a Knight piece with the specified color and position.
 
         Args:
             color (PieceColor): The color of the piece.
@@ -31,8 +29,7 @@ class Knight(Piece):
     @staticmethod
     def create_knight(color: PieceColor, current_row: int,
                       current_col: int) -> Knight:
-        """
-        Factory method to create a Knight piece.
+        """Factory method to create a Knight piece.
 
         Args:
             color (PieceColor): The color of the piece.
@@ -44,34 +41,8 @@ class Knight(Piece):
         """
         return Knight(color, current_row, current_col)
 
-    @override
-    def get_color(self) -> PieceColor:
-        """See base class."""
-        return self._color
-
-    @override
-    def get_row(self) -> int:
-        """See base class."""
-        return self._current_row
-
-    @override
-    def get_column(self) -> int:
-        """See base class."""
-        return self._current_col
-
-    @override
-    def set_row(self, dest_row: int) -> None:
-        """See base class."""
-        self._current_row = dest_row
-
-    @override
-    def set_column(self, dest_col: int) -> None:
-        """See base class."""
-        self._current_col = dest_col
-
     def _is_valid_knight_move(self, dest_row: int, dest_col: int) -> bool:
-        """
-        Checks if the move to the destination is valid for the Knight.
+        """Checks if the move to the destination is valid for the Knight.
 
         Knights move in an "L" shape: two squares in one direction and
         one square in the perpendicular direction, or one square in one
@@ -87,11 +58,8 @@ class Knight(Piece):
         if not super()._is_valid_move(dest_row, dest_col):
             return False
 
-        curr_row = self.get_row()
-        curr_col = self.get_column()
-
-        row_change = abs(curr_row - dest_row)
-        col_change = abs(curr_col - dest_col)
+        row_change = abs(self.row - dest_row)
+        col_change = abs(self.col - dest_col)
 
         # Knights can move 2 and 1 vertically or horizontally
         if (row_change == 2 and col_change == 1):
