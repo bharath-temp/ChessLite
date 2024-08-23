@@ -1,12 +1,14 @@
 import pytest
 
 from src.pieces.queen import Queen
+from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
+from src.utils.piece_type import PieceType
 
 
 def test_queen_factory_method():
     """Test the create_queen factory method."""
-    queen = Queen.create_queen(PieceColor.BLACK, 0, 4)
+    queen = PieceFactory.create_piece(PieceType.QUEEN, PieceColor.BLACK, 0, 4)
     assert isinstance(queen, Queen)
     assert queen.color == PieceColor.BLACK
     assert queen.row == 0
@@ -15,7 +17,7 @@ def test_queen_factory_method():
 
 @pytest.fixture
 def queen_test():
-    return Queen.create_queen(PieceColor.WHITE, 1, 1)
+    return PieceFactory.create_piece(PieceType.QUEEN, PieceColor.WHITE, 1, 1)
 
 
 def test_queen_initialization(queen_test):

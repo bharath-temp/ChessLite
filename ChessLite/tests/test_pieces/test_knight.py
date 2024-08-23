@@ -1,12 +1,15 @@
 import pytest
 
 from src.pieces.knight import Knight
+from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
+from src.utils.piece_type import PieceType
 
 
 def test_knight_factory_method():
     """Test the create_knight factory method."""
-    knight = Knight.create_knight(PieceColor.BLACK, 0, 4)
+    knight = PieceFactory.create_piece(PieceType.KNIGHT,
+                                       PieceColor.BLACK, 0, 4)
     assert isinstance(knight, Knight)
     assert knight.color == PieceColor.BLACK
     assert knight.row == 0
@@ -15,7 +18,7 @@ def test_knight_factory_method():
 
 @pytest.fixture
 def knight_test():
-    return Knight.create_knight(PieceColor.WHITE, 1, 1)
+    return PieceFactory.create_piece(PieceType.KNIGHT, PieceColor.WHITE, 1, 1)
 
 
 def test_knight_initialization(knight_test):

@@ -1,12 +1,14 @@
 import pytest
 
 from src.pieces.king import King
+from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
+from src.utils.piece_type import PieceType
 
 
 def test_king_factory_method():
     """Test the create_king factory method."""
-    king = King.create_king(PieceColor.BLACK, 0, 4)
+    king = PieceFactory.create_piece(PieceType.KING, PieceColor.BLACK, 0, 4)
     assert isinstance(king, King)
     assert king.color == PieceColor.BLACK
     assert king.row == 0
@@ -15,7 +17,7 @@ def test_king_factory_method():
 
 @pytest.fixture
 def king_test():
-    return King.create_king(PieceColor.WHITE, 1, 1)
+    return PieceFactory.create_piece(PieceType.KING, PieceColor.WHITE, 1, 1)
 
 
 def test_king_initialization(king_test):

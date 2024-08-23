@@ -86,8 +86,8 @@ class Piece(ABC):
             dest_row (int): The new row position.
             dest_col (int): The new column position.
         """
-        self._current_row = dest_row
-        self._current_col = dest_col
+        self.row = dest_row
+        self.col = dest_col
         self._on_position_changed()
 
     def __in_bounds_check(self, row: int, col: int) -> bool:
@@ -119,8 +119,8 @@ class Piece(ABC):
         if (
             not self._in_bounds_check(dest_row, dest_col)
             or (
-                self._current_row == dest_row
-                and self._current_col == dest_col
+                self.row == dest_row
+                and self.col == dest_col
             )
         ):
             return False
