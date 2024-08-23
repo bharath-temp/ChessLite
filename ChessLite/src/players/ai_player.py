@@ -7,8 +7,7 @@ from src.utils.colors import PieceColor
 
 
 class AIPlayer(Player):
-    """
-    A class representing an AI player in a chess game.
+    """A class representing an AI player in a chess game.
 
     Inherits from the Player abstract base class and implements the properties
     specific to an AI player.
@@ -20,8 +19,7 @@ class AIPlayer(Player):
     """
 
     def __init__(self, color: PieceColor, name: str = None) -> None:
-        """
-        Initializes an AI player with the specified color and optional name.
+        """Initializes an AI player with the specified color and optional name.
 
         Args:
             color (PieceColor): The color of the AI player's pieces.
@@ -33,8 +31,7 @@ class AIPlayer(Player):
 
     @staticmethod
     def create_ai_player(color: PieceColor, name: str = None) -> AIPlayer:
-        """
-        Factory method to create an AI player.
+        """Factory method to create an AI player.
 
         Args:
             color (PieceColor): The color of the AI player's pieces.

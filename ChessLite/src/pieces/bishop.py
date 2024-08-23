@@ -8,8 +8,7 @@ from src.utils.colors import PieceColor
 
 
 class Bishop(Piece):
-    """
-    Represents a Bishop chess piece.
+    """Represents a Bishop chess piece.
 
     Attributes:
         _color (PieceColor): The color of the piece.
@@ -17,8 +16,7 @@ class Bishop(Piece):
         _current_col (int): The current column position of the piece.
     """
     def __init__(self, color: PieceColor, current_row: int, current_col: int):
-        """
-        Initializes a Bishop piece with the specified color and position.
+        """Initializes a Bishop piece with the specified color and position.
 
         Args:
             color (PieceColor): The color of the piece.
@@ -30,8 +28,7 @@ class Bishop(Piece):
     @staticmethod
     def create_bishop(color: PieceColor, current_row: int,
                       current_col: int) -> Bishop:
-        """
-        Factory method to create a Bishop piece.
+        """Factory method to create a Bishop piece.
 
         Args:
             color (PieceColor): The color of the piece.
@@ -43,34 +40,8 @@ class Bishop(Piece):
         """
         return Bishop(color, current_row, current_col)
 
-    @override
-    def get_color(self) -> PieceColor:
-        """See base class."""
-        return self._color
-
-    @override
-    def get_row(self) -> int:
-        """See base class."""
-        return self._current_row
-
-    @override
-    def get_column(self) -> int:
-        """See base class."""
-        return self._current_col
-
-    @override
-    def set_row(self, dest_row: int) -> None:
-        """See base class."""
-        self._current_row = dest_row
-
-    @override
-    def set_column(self, dest_col: int) -> None:
-        """See base class."""
-        self._current_col = dest_col
-
     def _is_valid_bishop_move(self, dest_row: int, dest_col: int) -> bool:
-        """
-        Checks if the move to the destination is valid for the Bishop.
+        """Checks if the move to the destination is valid for the Bishop.
 
         Bishops can only move diagonally, which means the row and column
         changes must be equal.
@@ -85,11 +56,8 @@ class Bishop(Piece):
         if not super()._is_valid_move(dest_row, dest_col):
             return False
 
-        curr_row = self.get_row()
-        curr_col = self.get_column()
-
-        row_change = abs(curr_row - dest_row)
-        col_change = abs(curr_col - dest_col)
+        row_change = abs(self.row - dest_row)
+        col_change = abs(self.col - dest_col)
 
         # Bishops can only move diagonally
         return (row_change == col_change)

@@ -1,5 +1,4 @@
 @startuml
-skinparam linetype ortho
 left to right direction
 
 enum PieceColor{
@@ -13,34 +12,39 @@ enum PlayerType{
 }
 
 abstract class Piece {
-    # _color : PieceColor
-    # _current_row : int
-    # _current_col : int
-    - __init__(color: PieceColor, current_row: int, current_col: int)
-    # out_of_bound_check(row: int, col: int) : bool
+    - _color : PieceColor
+    - _current_row : int
+    - _current_col : int
+    + __init__(color: PieceColor, current_row: int, current_col: int)
+    + color() : PieceColor {property getter}
+    + row() : int {property getter}
+    + row(dest_row: int) : None {property setter}
+    + column() : int {property getter}
+    + column(dest_col: int) : None {property setter}
+    # _on_position_changed() : None
+    - set_position(dest_row: int, dest_col: int) : None
+    # in_bound_check(row: int, col: int) : bool
     # _is_valid_move(dest_row: int, dest_col: int) : bool
-    + {abstract} get_color() : PieceColor
-    + {abstract} get_row() : int
-    + {abstract} get_col() : int
-    + {abstract} set_row() : None
-    + {abstract} set_col() : None
+}
+
+class MovedPieceMixin {
+    - _moved : bool
+    + moved() : bool {property}
+    + moved(has_moved: bool) : None {property setter}
+    # _on_position_changed() : None
 }
 
 package "Pieces" {
     class Pawn {
-        + has_moved : bool
         - __init__(color: PieceColor, current_row: int, current_col: int)
         + {static} create_pawn(color: PieceColor, current_row: int, current_col: int)
-        + set_has_moved() : None
         # _can_promote() : bool
         # _is_valid_pawn_move(dest_row: int, dest_col: int) : bool
     }
     
     class Rook {
-        + has_moved : bool
         - __init__(color: PieceColor, current_row: int, current_col: int)
         + {static} create_rook(color: PieceColor, current_row: int, current_col: int)
-        + set_has_moved() : None
         # _is_valid_rook_move(dest_row: int, dest_col: int) : bool
     }
     
@@ -57,11 +61,8 @@ package "Pieces" {
     }
     
     class King {
-        + has_moved : bool
-        + has_castled : bool
         - __init__(color: PieceColor, current_row: int, current_col: int)
         + {static} create_king(color: PieceColor, current_row: int, current_col: int)
-        + set_has_moved() : None
         # _is_valid_king_move(dest_row: int, dest_col: int) : bool
     }
     
@@ -79,14 +80,18 @@ Piece <|-- Bishop
 Piece <|-- King
 Piece <|-- Queen
 
+MovedPieceMixin <|-- King
+MovedPieceMixin <|-- Pawn
+MovedPieceMixin <|-- Rook
+
 abstract class Player {
-    # _player_type : PlayerType
-    # _color : PieceColor
-    # _name : string
-    - __init__(player_type: PlayerType, color: PieceColor, name: string)
-    + player_type : PlayerType <<property>>
-    + color : PieceColor <<property>>
-    + name : string <<property>>
+    - _player_type : PlayerType
+    - _color : PieceColor
+    - _name : string
+    + __init__(player_type: PlayerType, color: PieceColor, name: string)
+    + player_type() : PlayerType {property getter}
+    + color() : PieceColor {property getter}
+    + name() : string {property getter}
 }
 
 package "Players" {
