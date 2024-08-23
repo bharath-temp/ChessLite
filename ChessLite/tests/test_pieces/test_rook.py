@@ -1,12 +1,14 @@
 import pytest
 
 from src.pieces.rook import Rook
+from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
+from src.utils.piece_type import PieceType
 
 
 def test_rook_factory_method():
     """Test the create_rook factory method."""
-    rook = Rook.create_rook(PieceColor.BLACK, 0, 4)
+    rook = PieceFactory.create_piece(PieceType.ROOK, PieceColor.BLACK, 0, 4)
     assert isinstance(rook, Rook)
     assert rook.color == PieceColor.BLACK
     assert rook.row == 0
@@ -15,7 +17,7 @@ def test_rook_factory_method():
 
 @pytest.fixture
 def rook_test():
-    return Rook.create_rook(PieceColor.WHITE, 1, 1)
+    return PieceFactory.create_piece(PieceType.ROOK, PieceColor.WHITE, 1, 1)
 
 
 def test_rook_initialization(rook_test):

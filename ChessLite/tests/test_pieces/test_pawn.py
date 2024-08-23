@@ -1,12 +1,15 @@
 import pytest
 
 from src.pieces.pawn import Pawn
+from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
+from src.utils.piece_type import PieceType
 
 
 def test_pawn_factory_method():
     """Test the create_pawn factory method."""
-    pawn = Pawn.create_pawn(PieceColor.BLACK, 0, 4)
+    pawn = PieceFactory.create_piece(PieceType.PAWN,
+                                     PieceColor.BLACK, 0, 4)
     assert isinstance(pawn, Pawn)
     assert pawn.color == PieceColor.BLACK
     assert pawn.row == 0
@@ -15,7 +18,7 @@ def test_pawn_factory_method():
 
 @pytest.fixture
 def pawn_test():
-    return Pawn.create_pawn(PieceColor.WHITE, 1, 1)
+    return PieceFactory.create_piece(PieceType.PAWN, PieceColor.WHITE, 1, 1)
 
 
 def test_pawn_initialization(pawn_test):

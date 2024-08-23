@@ -4,9 +4,12 @@ from __future__ import annotations
 from typing import override
 
 from src.pieces.chesspiece import Piece
+from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
+from src.utils.piece_type import PieceType
 
 
+@PieceFactory.register_piece(PieceType.KNIGHT)
 class Knight(Piece):
     """Represents a Knight chess piece.
 
@@ -25,21 +28,6 @@ class Knight(Piece):
             current_col (int): The initial column position of the piece.
         """
         super().__init__(color, current_row, current_col)
-
-    @staticmethod
-    def create_knight(color: PieceColor, current_row: int,
-                      current_col: int) -> Knight:
-        """Factory method to create a Knight piece.
-
-        Args:
-            color (PieceColor): The color of the piece.
-            current_row (int): The row position to place the Knight.
-            current_col (int): The column position to place the Knight.
-
-        Returns:
-            Knight: A new Knight instance.
-        """
-        return Knight(color, current_row, current_col)
 
     def _is_valid_knight_move(self, dest_row: int, dest_col: int) -> bool:
         """Checks if the move to the destination is valid for the Knight.

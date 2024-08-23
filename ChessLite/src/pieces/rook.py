@@ -4,10 +4,13 @@ from __future__ import annotations
 from typing import override
 
 from src.pieces.chesspiece import Piece
-from src.pieces.moved_piece_mixin import MovedPieceMixin
+from src.pieces.mixins.moved_piece_mixin import MovedPieceMixin
+from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
+from src.utils.piece_type import PieceType
 
 
+@PieceFactory.register_piece(PieceType.ROOK)
 class Rook(Piece, MovedPieceMixin):
     """Represents a Rook chess piece.
 
@@ -28,21 +31,6 @@ class Rook(Piece, MovedPieceMixin):
         """
         super().__init__(color, current_row, current_col)
         self._moved = False
-
-    @staticmethod
-    def create_rook(color: PieceColor, current_row: int,
-                    current_col: int) -> Rook:
-        """Factory method to create a Rook piece.
-
-        Args:
-            color (PieceColor): The color of the piece.
-            current_row (int): The row position to place the Rook.
-            current_col (int): The column position to place the Rook.
-
-        Returns:
-            Rook: A new Rook instance.
-        """
-        return Rook(color, current_row, current_col)
 
     def _is_valid_rook_move(self, dest_row: int, dest_col: int) -> bool:
         """Checks if the move to the destination is valid for the Rook.

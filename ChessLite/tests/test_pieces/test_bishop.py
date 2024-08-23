@@ -1,12 +1,15 @@
 import pytest
 
 from src.pieces.bishop import Bishop
+from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
+from src.utils.piece_type import PieceType
 
 
 def test_bishop_factory_method():
     """Test the create_bishop factory method."""
-    bishop = Bishop.create_bishop(PieceColor.BLACK, 0, 4)
+    bishop = PieceFactory.create_piece(PieceType.BISHOP,
+                                       PieceColor.BLACK, 0, 4)
     assert isinstance(bishop, Bishop)
     assert bishop.color == PieceColor.BLACK
     assert bishop.row == 0
@@ -15,7 +18,8 @@ def test_bishop_factory_method():
 
 @pytest.fixture
 def bishop_test():
-    return Bishop.create_bishop(PieceColor.WHITE, 1, 1)
+    return PieceFactory.create_piece(PieceType.BISHOP,
+                                     PieceColor.WHITE, 1, 1)
 
 
 def test_bishop_initialization(bishop_test):
