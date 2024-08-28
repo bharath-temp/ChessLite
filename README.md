@@ -1,6 +1,6 @@
 # ChessLite
 
-## Class Diagram
+## Class Diagram - Backend
 
 ![Class Diagram](ChessLite/class_diagrams/chess_uml_diagram.png)
 

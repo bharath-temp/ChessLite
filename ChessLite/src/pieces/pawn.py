@@ -41,12 +41,12 @@ class Pawn(Piece, MovedPieceMixin):
         Returns:
             bool: True if the Pawn can be promoted, False otherwise.
         """
-        color = self.get_color()
-        curr_row = self.get_row()
+        color = self.color
+        curr_row = self.row
 
-        if (color == PieceColor.WHITE) and (curr_row == 7):
+        if (color == PieceColor.WHITE) and (curr_row == 0):
             return True
-        if (color == PieceColor.BLACK) and (curr_row == 0):
+        if (color == PieceColor.BLACK) and (curr_row == 7):
             return True
 
         return False
@@ -72,9 +72,8 @@ class Pawn(Piece, MovedPieceMixin):
         col_change = abs(self.col - dest_col)
 
         # Pawns can only move forward in the direction respective to color
-        if (self.color == PieceColor.WHITE) and (dest_row > self.row):
-            return False
-        if (self.color == PieceColor.BLACK) and (dest_row < self.row):
+        if ((self.color == PieceColor.WHITE) and (dest_row < self.row) or
+                (self.color == PieceColor.BLACK) and (dest_row > self.row)):
             return False
 
         # Pawns can move forward 1 square, standard move
