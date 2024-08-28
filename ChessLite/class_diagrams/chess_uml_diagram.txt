@@ -25,6 +25,7 @@ abstract class Piece {
     - set_position(dest_row: int, dest_col: int) : None
     # in_bound_check(row: int, col: int) : bool
     # _is_valid_move(dest_row: int, dest_col: int) : bool
+    # {abstract} _validate_piece_move(dest_row: int, dest_col: int) : bool
 }
 
 class MovedPieceMixin {
@@ -44,32 +45,26 @@ package "Pieces" {
     class Pawn {
         - __init__(color: PieceColor, current_row: int, current_col: int)
         # _can_promote() : bool
-        # _is_valid_pawn_move(dest_row: int, dest_col: int) : bool
     }
     
     class Rook {
         - __init__(color: PieceColor, current_row: int, current_col: int)
-        # _is_valid_rook_move(dest_row: int, dest_col: int) : bool
     }
     
     class Knight {
         - __init__(color: PieceColor, current_row: int, current_col: int)
-        # _is_valid_knight_move(dest_row: int, dest_col: int) : bool
     }
     
     class Bishop {
         - __init__(color: PieceColor, current_row: int, current_col: int)
-        # _is_valid_bishop_move(dest_row: int, dest_col: int) : bool
     }
     
     class King {
         - __init__(color: PieceColor, current_row: int, current_col: int)
-        # _is_valid_king_move(dest_row: int, dest_col: int) : bool
     }
     
     class Queen {
         - __init__(color: PieceColor, current_row: int, current_col: int)
-        # _is_valid_queen_move(dest_row: int, dest_col: int) : bool
     }
 }
 
