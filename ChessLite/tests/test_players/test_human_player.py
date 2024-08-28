@@ -1,12 +1,14 @@
 import pytest
 
+from src.players.player_factory import PlayerFactory
 from src.players.human_player import HumanPlayer
 from src.utils.colors import PieceColor
 from src.utils.player_type import PlayerType
 
 
 def test_human_player_factory_method():
-    human_player = HumanPlayer.create_human_player(PieceColor.BLACK)
+    human_player = PlayerFactory.create_player(PlayerType.HUMAN,
+                                               PieceColor.BLACK)
     assert isinstance(human_player, HumanPlayer)
     assert human_player.player_type == PlayerType.HUMAN
     assert human_player.color == PieceColor.BLACK
