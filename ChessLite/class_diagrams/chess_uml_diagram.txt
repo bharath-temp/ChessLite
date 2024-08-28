@@ -94,6 +94,28 @@ class PlayerFactory {
     + {static} create_player(player_type: PieceType, color: PieceColor, row: int, col: int) : Player
 }
 
+class GameBoard {
+    - __board : List[List[]]
+    + __init__()
+    + display_board() : None
+    + update_board() : None
+}
+
+class PieceManager {
+    - __black_pieces : dict{tuple(coords): Piece}
+    - __white_pieces : dict{tuple(coords): Piece}
+    - __init__()
+    + get_piece_at(row: int, col: int) : Piece
+    + place_piece_at(piece: Piece, row: int, col: int) : None
+}
+
+class GameController {
+    - __current_player : Player
+    - __init__()
+    + get_player_input(curr_row: int, curr_col: int, dest_row: int, dest_col: int) : None
+    + is_player_move_valid()
+}
+
 Piece <|-- Pawn
 Piece <|-- Rook
 Piece <|-- Knight
@@ -119,4 +141,7 @@ Player <|-- AIPlayer
 PlayerFactory ..> Player : "creates >"
 HumanPlayer ..> PlayerFactory : "registered with"
 AIPlayer ..> PlayerFactory : "registered with"
+
+PieceManager <..> GameController : "injected into"
+PieceManager <..> GameBoard : "injected into"
 @enduml
