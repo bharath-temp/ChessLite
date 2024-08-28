@@ -1,9 +1,7 @@
 import pytest
 
-from src.pieces.knight import Knight
-from src.pieces.piece_factory import PieceFactory
-from src.utils.colors import PieceColor
-from src.utils.piece_type import PieceType
+from src.pieces import Knight, PieceFactory
+from src.utils import PieceColor, PieceType
 
 
 def test_knight_factory_method():

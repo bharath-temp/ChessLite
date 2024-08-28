@@ -1,3 +1,6 @@
+from src.utils.colors import PieceColor
+
+
 def main():
     return None
 
