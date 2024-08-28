@@ -2,10 +2,12 @@ from __future__ import annotations
 from typing import override
 
 from src.players.player import Player
+from src.players.player_factory import PlayerFactory
 from src.utils.player_type import PlayerType
 from src.utils.colors import PieceColor
 
 
+@PlayerFactory.register_player(PlayerType.HUMAN)
 class HumanPlayer(Player):
     """A class representing a human player in a chess game.
 
@@ -29,22 +31,6 @@ class HumanPlayer(Player):
                                   on the player type and color.
         """
         super().__init__(PlayerType.HUMAN, color, name)
-
-    @staticmethod
-    def create_human_player(color: PieceColor,
-                            name: str = None) -> HumanPlayer:
-        """Factory method to create a human player.
-
-        Args:
-            color (PieceColor): The color of the human player's pieces.
-            name (str, optional): The name of the human player. If not
-                                  provided, a default name is generated based
-                                  on the player type and color.
-
-        Returns:
-            HumanPlayer: A new instance of HumanPlayer.
-        """
-        return HumanPlayer(color, name)
 
     @override
     @property

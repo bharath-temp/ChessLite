@@ -37,8 +37,8 @@ class MovedPieceMixin {
 
 class PieceFactory {
     - __piece_registry : dict
-    + {static} create_piece(piece_type: PieceType, color: PieceColor, row: int, col: int) : Piece
     + {class} register_piece(piece_type: PieceType) : function
+    + {static} create_piece(piece_type: PieceType, color: PieceColor, row: int, col: int) : Piece
 }
 
 package "Pieces" {
@@ -68,6 +68,32 @@ package "Pieces" {
     }
 }
 
+abstract class Player {
+    - _player_type : PlayerType
+    - _color : PieceColor
+    - _name : string
+    + __init__(player_type: PlayerType, color: PieceColor, name: string)
+    + player_type() : PlayerType {property getter}
+    + color() : PieceColor {property getter}
+    + name() : string {property getter}
+}
+
+package "Players" {
+    class HumanPlayer {
+        - __init__(color: PieceColor, name: string)
+    }
+    
+    class AIPlayer {
+        - __init__(color: PieceColor, name: string)
+    }
+}
+
+class PlayerFactory {
+    - __player_registry : dict
+    + {class} register_player(player_type: PieceType) : function
+    + {static} create_player(player_type: PieceType, color: PieceColor, row: int, col: int) : Player
+}
+
 Piece <|-- Pawn
 Piece <|-- Rook
 Piece <|-- Knight
@@ -87,28 +113,10 @@ Bishop ..> PieceFactory : "registered with"
 King ..> PieceFactory : "registered with"
 Queen ..> PieceFactory : "registered with"
 
-abstract class Player {
-    - _player_type : PlayerType
-    - _color : PieceColor
-    - _name : string
-    + __init__(player_type: PlayerType, color: PieceColor, name: string)
-    + player_type() : PlayerType {property getter}
-    + color() : PieceColor {property getter}
-    + name() : string {property getter}
-}
-
-package "Players" {
-    class HumanPlayer {
-        - __init__(color: PieceColor, name: string)
-        + {static} create_human_player(color: PieceColor, name: string)
-    }
-    
-    class AIPlayer {
-        - __init__(color: PieceColor, name: string)
-        + {static} create_ai_player(color: PieceColor, name: string)
-    }
-}
-
 Player <|-- HumanPlayer
 Player <|-- AIPlayer
+
+PlayerFactory ..> Player : "creates >"
+HumanPlayer ..> PlayerFactory : "registered with"
+AIPlayer ..> PlayerFactory : "registered with"
 @enduml
