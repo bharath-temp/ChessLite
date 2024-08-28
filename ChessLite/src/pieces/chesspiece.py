@@ -126,3 +126,20 @@ class Piece(ABC):
             return False
 
         return True
+
+    @abstractmethod
+    def _validate_piece_move(self, dest_row: int, dest_col: int) -> bool:
+        """Validates the piece-specific movement rules.
+
+        Example: A Knight moves in an "L" shape, which means two squares in
+        one direction and one square in the perpendicular direction.
+
+        Args:
+            dest_row (int): The destination row position.
+            dest_col (int): The destination column position.
+
+        Returns:
+            bool: True if the move is valid according to the piece's rules,
+            False otherwise.
+        """
+        pass

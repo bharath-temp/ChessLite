@@ -29,12 +29,11 @@ class Queen(Piece):
         """
         super().__init__(color, current_row, current_col)
 
-    def _is_valid_queen_move(self, dest_row: int, dest_col: int) -> bool:
-        """Checks if the move to the destination is valid for the Queen.
+    @override
+    def _validate_piece_move(self, dest_row: int, dest_col: int) -> bool:
+        """Overrides piece-specific move validation for the Queen.
 
-        The Queen can move diagonally, vertically, or horizontally. The move
-        is valid if the row and column changes are either equal (diagonal)
-        or one of them is zero (vertical or horizontal).
+        The Queen moves diagonally, vertically, or horizontally.
 
         Args:
             dest_row (int): The destination row position.

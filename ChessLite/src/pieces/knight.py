@@ -29,12 +29,12 @@ class Knight(Piece):
         """
         super().__init__(color, current_row, current_col)
 
-    def _is_valid_knight_move(self, dest_row: int, dest_col: int) -> bool:
-        """Checks if the move to the destination is valid for the Knight.
+    @override
+    def _validate_piece_move(self, dest_row: int, dest_col: int) -> bool:
+        """Overrides piece-specific move validation for the Knight.
 
         Knights move in an "L" shape: two squares in one direction and
-        one square in the perpendicular direction, or one square in one
-        direction and two squares in the perpendicular direction.
+        one square in the other.
 
         Args:
             dest_row (int): The destination row position.

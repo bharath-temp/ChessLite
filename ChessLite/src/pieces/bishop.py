@@ -28,11 +28,11 @@ class Bishop(Piece):
         """
         super().__init__(color, current_row, current_col)
 
-    def _is_valid_bishop_move(self, dest_row: int, dest_col: int) -> bool:
-        """Checks if the move to the destination is valid for the Bishop.
+    @override
+    def _validate_piece_move(self, dest_row: int, dest_col: int) -> bool:
+        """Overrides piece-specific move validation for the Bishop.
 
-        Bishops can only move diagonally, which means the row and column
-        changes must be equal.
+        Bishops move diagonally, so row and column changes must be equal.
 
         Args:
             dest_row (int): The destination row position.

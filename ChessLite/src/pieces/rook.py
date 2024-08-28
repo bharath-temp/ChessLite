@@ -18,7 +18,8 @@ class Rook(Piece, MovedPieceMixin):
         _color (PieceColor): The color of the piece.
         _current_row (int): The current row position of the piece.
         _current_col (int): The current column position of the piece.
-        _moved (bool): Tracks if the Rook has moved.
+        _moved (bool): Tracks if the Rook has moved (inherited from
+                       MovedPieceMixin).
     """
 
     def __init__(self, color: PieceColor, current_row: int, current_col: int):
@@ -32,8 +33,11 @@ class Rook(Piece, MovedPieceMixin):
         super().__init__(color, current_row, current_col)
         self._moved = False
 
-    def _is_valid_rook_move(self, dest_row: int, dest_col: int) -> bool:
-        """Checks if the move to the destination is valid for the Rook.
+    @override
+    def _validate_piece_move(self, dest_row: int, dest_col: int) -> bool:
+        """Overrides piece-specific move validation for the Rook.
+
+        The Rook moves vertically or horizontally.
 
         Args:
             dest_row (int): The destination row position.
