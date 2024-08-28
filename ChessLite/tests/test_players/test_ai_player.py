@@ -1,9 +1,7 @@
 import pytest
 
-from src.players.player_factory import PlayerFactory
-from src.players.ai_player import AIPlayer
-from src.utils.colors import PieceColor
-from src.utils.player_type import PlayerType
+from src.players import AIPlayer, PlayerFactory
+from src.utils import PieceColor, PlayerType
 
 
 def test_ai_player_factory_method():

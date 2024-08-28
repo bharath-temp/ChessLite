@@ -1,9 +1,7 @@
 import pytest
 
-from src.pieces.rook import Rook
-from src.pieces.piece_factory import PieceFactory
-from src.utils.colors import PieceColor
-from src.utils.piece_type import PieceType
+from src.pieces import Rook, PieceFactory
+from src.utils import PieceColor, PieceType
 
 
 def test_rook_factory_method():
