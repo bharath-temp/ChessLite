@@ -69,11 +69,11 @@ class Pawn(Piece, MovedPieceMixin):
             return False
 
         row_change = abs(self.row - dest_row)
-        col_change = abs(self.col - dest_col)
+        col_change = abs(self.column - dest_col)
 
         # Pawns can only move forward in the direction respective to color
-        if ((self.color == PieceColor.WHITE) and (dest_row < self.row) or
-                (self.color == PieceColor.BLACK) and (dest_row > self.row)):
+        if ((self.color == PieceColor.WHITE) and (dest_row > self.row) or
+                (self.color == PieceColor.BLACK) and (dest_row < self.row)):
             return False
 
         # Pawns can move forward 1 square, standard move

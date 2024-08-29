@@ -46,7 +46,7 @@ class Queen(Piece):
             return False
 
         row_change = abs(self.row - dest_row)
-        col_change = abs(self.col - dest_col)
+        col_change = abs(self.column - dest_col)
 
         # Queens can move diagonally or vertically or horizontally
         if (row_change == col_change):

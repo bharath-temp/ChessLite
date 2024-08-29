@@ -90,7 +90,7 @@ class Piece(ABC):
         self.col = dest_col
         self._on_position_changed()
 
-    def __in_bounds_check(self, row: int, col: int) -> bool:
+    def _in_bounds_check(self, row: int, col: int) -> bool:
         """Checks if the given position is within the bounds of the chessboard.
 
         Args:
@@ -120,7 +120,7 @@ class Piece(ABC):
             not self._in_bounds_check(dest_row, dest_col)
             or (
                 self.row == dest_row
-                and self.col == dest_col
+                and self.column == dest_col
             )
         ):
             return False

@@ -50,7 +50,7 @@ class Rook(Piece, MovedPieceMixin):
             return False
 
         row_change = abs(self.row - dest_row)
-        col_change = abs(self.col - dest_col)
+        col_change = abs(self.column - dest_col)
 
         # Rooks can only move in 2 direction vertically or horizontally
         if (row_change > 0 and col_change == 0):

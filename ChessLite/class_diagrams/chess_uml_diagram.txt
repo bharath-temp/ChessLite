@@ -96,24 +96,31 @@ class PlayerFactory {
 
 class GameBoard {
     - __board : List[List[]]
+    - __piece_manager : PieceManager
     + __init__()
     + display_board() : None
     + update_board() : None
 }
 
 class PieceManager {
-    - __black_pieces : dict{tuple(coords): Piece}
-    - __white_pieces : dict{tuple(coords): Piece}
+    - pieces : dict{tuple(coords): Piece}
     - __init__()
+    - __initialize_pawns()
+    - __initialize_major_pieces
     + get_piece_at(row: int, col: int) : Piece
     + place_piece_at(piece: Piece, row: int, col: int) : None
 }
 
 class GameController {
     - __current_player : Player
+    - __piece_manager : PieceManager
+    - __game_over : bool
     - __init__()
+    + switch_turn()
     + get_player_input(curr_row: int, curr_col: int, dest_row: int, dest_col: int) : None
-    + is_player_move_valid()
+    + validate_player_move()
+    + play_turn()
+    + play_game()
 }
 
 Piece <|-- Pawn
