@@ -47,7 +47,7 @@ class Knight(Piece):
             return False
 
         row_change = abs(self.row - dest_row)
-        col_change = abs(self.col - dest_col)
+        col_change = abs(self.column - dest_col)
 
         # Knights can move 2 and 1 vertically or horizontally
         if (row_change == 2 and col_change == 1):

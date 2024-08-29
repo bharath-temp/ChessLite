@@ -50,7 +50,7 @@ class King(Piece, MovedPieceMixin):
             return False
 
         row_change = abs(self.row - dest_row)
-        col_change = abs(self.col - dest_col)
+        col_change = abs(self.column - dest_col)
 
         # Kings can only move 1 square in any direction
         return (row_change <= 1 and col_change <= 1)
