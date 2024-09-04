@@ -123,6 +123,50 @@ class GameController {
     + play_game()
 }
 
+abstract class Rule {
+    + __init__(piece_manager: PieceManager)
+    + validate(piece: Piece, player: Player, target_row: int, target_col: int) : bool
+}
+
+class RuleHandler extends Rule {
+    - _next_rule : Rule
+    + set_next(rule: Rule) : Rule
+    + validate(piece: Piece, player: Player, target_row: int, target_col: int) : bool
+}
+
+class SameColorRule extends RuleHandler {
+    Handler #1
+    ..
+    + validate(piece: Piece, player: Player, target_row: int, target_col: int) : bool
+}
+
+class FundPieceMoveRule extends RuleHandler {
+    Handler #2
+    ..
+    + validate(piece: Piece, player: Player, target_row: int, target_col: int) : bool
+}
+
+class PathClearRule extends RuleHandler {
+    Handler #3
+    ..
+    - _path_clear_rule : PathClearHelperRule
+    + validate(piece: Piece, player: Player, target_row: int, target_col: int) : bool
+}
+
+class CapturePieceRule extends RuleHandler {
+    Handler #4
+    ..
+    + validate(piece: Piece, player: Player, target_row: int, target_col: int) : bool
+    + __pawn_capture_rule(piece: Piece, target_piece: Piece, target_row: int, target_col: int) : bool
+}
+
+class SelfCheckRule extends RuleHandler {
+    Handler #5
+    ..
+    - _checked_rule : CheckedHelperRule
+    + validate(piece: Piece, player: Player, target_row: int, target_col: int) : bool
+}
+
 Piece <|-- Pawn
 Piece <|-- Rook
 Piece <|-- Knight
@@ -151,4 +195,15 @@ AIPlayer ..> PlayerFactory : "registered with"
 
 PieceManager <..> GameController : "injected into"
 PieceManager <..> GameBoard : "injected into"
+
+GameController --> RuleHandler : "Client"
+
+RuleHandler --> PieceManager : "interacts with"
+RuleHandler <|-- SameColorRule
+RuleHandler <|-- FundPieceMoveRule
+RuleHandler <|-- PathClearRule
+RuleHandler <|-- CapturePieceRule
+RuleHandler <|-- SelfCheckRule
+
+RuleHandler --> RuleHandler : "next_rule\nset_next()"
 @enduml
