@@ -44,7 +44,7 @@ def main():
                  )
             continue
 
-        game_controller.get_player_input(start_row, start_col,
+        game_controller.handle_player_input(start_row, start_col,
                                          end_row, end_col)
         board.update_board()
         board.display_board()

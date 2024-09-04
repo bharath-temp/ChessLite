@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 
 from src.utils.colors import PieceColor
+from src.utils.piece_type import PieceType
 
 
 class Piece(ABC):
@@ -12,8 +13,8 @@ class Piece(ABC):
         _current_col (int): The current column position of the piece.
     """
 
-    def __init__(self, color: PieceColor, current_row: int,
-                 current_col: int) -> None:
+    def __init__(self, color: PieceColor, piece_type: PieceType,
+                 current_row: int, current_col: int) -> None:
         """Initializes a chess piece with the specified color and position.
 
         Args:
@@ -22,6 +23,7 @@ class Piece(ABC):
             current_col (int): The initial column position of the piece.
         """
         self._color = color
+        self._piece_type = piece_type
         self._current_row = current_row
         self._current_col = current_col
 
@@ -33,6 +35,15 @@ class Piece(ABC):
             PieceColor: The color of the piece.
         """
         return self._color
+
+    @property
+    def piece_type(self) -> PieceType:
+        """The type of the piece.
+
+        Returns:
+            PieceType: The type of the piece.
+        """
+        return self._piece_type
 
     @property
     def row(self) -> int:

@@ -27,7 +27,7 @@ class Queen(Piece):
             current_row (int): The initial row position of the piece.
             current_col (int): The initial column position of the piece.
         """
-        super().__init__(color, current_row, current_col)
+        super().__init__(color, PieceType.QUEEN, current_row, current_col)
 
     @override
     def _validate_piece_move(self, dest_row: int, dest_col: int) -> bool:
