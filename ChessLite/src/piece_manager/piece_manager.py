@@ -43,6 +43,9 @@ class PieceManager():
 
         return None
 
+    def get_opponent_pieces(self, color: PieceColor) -> list[Piece]:
+        return [piece for piece in self.pieces if piece.color != color]
+
     def get_king(self, color: PieceColor) -> Piece:
         for piece in self.pieces:
             if isinstance(piece, King) and piece.color == color:
