@@ -1,11 +1,15 @@
+from typing import override
+
 from src.pieces import Piece
 from src.players import Player
 from src.piece_manager import PieceManager
 from src.rules.rule import Rule
 from src.pieces import Bishop, King, Knight, Pawn, \
                        Piece, PieceFactory, Queen, Rook
+from src.utils.piece_type import PieceType
 
 class CheckedHelperRule(Rule):
+    @override
     def validate(self, player: Player) -> bool:
         king = self._piece_manager.get_king(player.color)
         king_row = king.row
@@ -16,15 +20,26 @@ class CheckedHelperRule(Rule):
         path_clear_helper = PathClearHelperRule(self._piece_manager) 
 
         for piece in opp_pieces:
-            if piece._validate_piece_move(king_row, king_col) and \
-                path_clear_helper.validate(piece, player, king_row, king_col):
-                print(f"You're in check")
-                return True
+            if isinstance(piece, Pawn):
+                row_diff = abs(piece.row - king_row)
+                col_diff = abs(piece.column - king_col)
+
+                if row_diff == 1 and col_diff == 1:
+                    print(f"Pawn at {piece.row}-{piece.column} is putting you in check")
+                    return True
+            else:
+                if piece._validate_piece_move(king_row, king_col) and \
+                   path_clear_helper.validate(piece, player, king_row, king_col):
+                    target_piece = piece
+                    print(f"{target_piece}-{target_piece.color} {target_piece.row} {target_piece.column} put you in check")
+                    print(f"You're in check")
+                    return True
 
         return False
         
 
 class PathClearHelperRule(Rule):
+    @override
     def validate(self, piece: Piece, player: Player, target_row: int,
                  target_col: int) -> bool:
         if self.__target_square_occupied(piece, target_row,
@@ -32,7 +47,7 @@ class PathClearHelperRule(Rule):
             print(f"Piece is occupied by same color at {target_row}, {target_col}")
             return False
 
-        if isinstance(piece, Knight):
+        if piece.piece_type is PieceType.KNIGHT:
             return True
 
         if target_row > piece.row:

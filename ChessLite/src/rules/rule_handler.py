@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import override
 
 from src.pieces import Piece
 from src.piece_manager import PieceManager
@@ -16,6 +17,7 @@ class RuleHandler(Rule):
         return rule
 
     @abstractmethod
+    @override
     def validate(self, piece: Piece, player: Player, target_row: int,
                  target_col: int) -> bool:
         if self._next_rule:

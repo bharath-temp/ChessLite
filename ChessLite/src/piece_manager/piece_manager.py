@@ -46,6 +46,9 @@ class PieceManager():
     def get_opponent_pieces(self, color: PieceColor) -> list[Piece]:
         return [piece for piece in self.pieces if piece.color != color]
 
+    def get_friendly_pieces(self, color: PieceColor) -> list[Piece]:
+        return [piece for piece in self.pieces if piece.color == color]
+
     def get_king(self, color: PieceColor) -> Piece:
         for piece in self.pieces:
             if isinstance(piece, King) and piece.color == color:
@@ -55,3 +58,9 @@ class PieceManager():
                        target_col: int) -> None:
         piece.row = target_row
         piece.column = target_col
+
+    def remove_piece_at(self, target_row: int, target_col: int) -> None:
+        target_piece = self.get_piece_at(target_row, target_col)
+
+        if target_piece:
+            self.pieces.remove(target_piece)

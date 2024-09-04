@@ -4,7 +4,7 @@ from src.piece_manager import PieceManager
 from src.players import Player, AIPlayer, HumanPlayer
 from src.rules import CheckedHelperRule, FundPieceMoveRule, PathClearRule, \
                       PathClearHelperRule, SameColorRule, \
-                      SelfCheckRule
+                      SelfCheckRule, CheckMatedRule, CapturePieceRule
 from src.utils import PieceColor, PieceType, PlayerType
 
 
@@ -24,7 +24,10 @@ class GameController():
         self.__rules_chain = SameColorRule(self.__piece_manager)
         self.__rules_chain.set_next(FundPieceMoveRule(self.__piece_manager))\
                           .set_next(PathClearRule(self.__piece_manager, self.__path_clear_helper_rule))\
+                          .set_next(CapturePieceRule(self.__piece_manager))\
                           .set_next(SelfCheckRule(self.__piece_manager, self.__checked_helper_rule))
+
+        self.__check_mated_rule = CheckMatedRule(self.__piece_manager, self.__checked_helper_rule, self.__rules_chain)
 
         self.__current_player = player_one
         self.__game_over = False
@@ -35,11 +38,15 @@ class GameController():
         else:
             self.__current_player = self.__player_one
 
-    def get_player_input(self, row: int, col: int, target_row: int,
+    def handle_player_input(self, row: int, col: int, target_row: int,
                          target_col: int) -> None:
         print(f"func: get_player_input {self.__current_player.color}")
         piece = self.__piece_manager.get_piece_at(row, col)
         if self.validate_player_move(row, col, target_row, target_col):
+            capture_piece = self.__piece_manager.get_piece_at(target_row, target_col)
+            if capture_piece != None:
+                self.__piece_manager.remove_piece_at(target_row, target_col)
+
             self.__piece_manager.place_piece_at(piece, target_row,
                                                 target_col)
             self.__switch_turn()
@@ -59,71 +66,14 @@ class GameController():
             return False
 
         return True
-        '''
-        # can't move different color piece
-        if piece.color is not self.__current_player.color:
-            print(f"{piece_repr} can't move, not same color")
-            return False
 
-        # fundamental piece movement error
-        if not piece._validate_piece_move(target_row, target_col):
-            print(f"{piece_repr} piece can't move that way")
-            return False
+    def is_checkmate(self) -> bool:
+        if self.__check_mated_rule.validate(self.__current_player):
+            print(f"Checkmate! {self.__current_player.color.name} loses.")
+            self.__game_over = True
+            return True
 
-        # piece can't move there, path is blocked
-        if not self.__is_path_clear(piece, target_row, target_col):
-            print(f"{piece_repr} piece is blocked")
-            return False
-
-        # piece movement will cause self check
-        if self.__would_cause_check(piece, target_row, target_col):
-            print(f"{piece_repr} piece will cause self check")
-            return False
-
-        return True
-        '''
-
-    def __is_in_check(self) -> bool:
-        return self.__checked_helper_rule.validate(self.__current_player)
-
-    def __would_cause_check(self, piece: Piece, target_row: int,
-                            target_col: int) -> bool:
-        print(f"func: __would_cause_check {self.__current_player.color}")
-        orig_row = piece.row
-        orig_col = piece.column
-
-        self.__piece_manager.place_piece_at(piece, target_row, target_col)
-        is_checked = self.__is_in_check()
-        self.__piece_manager.place_piece_at(piece, orig_row, orig_col)
-
-        return is_checked
-
-    def is_checkmate(self) -> bool: 
-        print(f"func: __is_in_checkmate")
-        if self.__is_in_check() is False:
-            return False
-
-        for piece in self.__piece_manager.pieces:
-            if piece.color == self.__current_player.color:
-                continue
-
-            orig_row = piece.row
-            orig_col = piece.column
-
-            for row in range(BOARD_SIZE):
-                for col in range(BOARD_SIZE):
-                    if self.__is_valid_and_clear(orig_row, orig_col, row,
-                                                 col, piece):
-                        if not self.__would_cause_check(piece, row, col):
-                            return False
-
-        print(f"Checkmate! {self.__current_player.color.name} loses.")
-        self.__game_over = True
-        return True
-
-    def __is_valid_and_clear(self, orig_row, orig_col, row, col, piece):
-        return self.validate_player_move(orig_row, orig_col, row, col) and \
-               self.__path_clear_helper_rule(piece, row, col)
+        return False
 
     def forfeit(self) -> None:
         print(f"{self.__current_player.color} player has forfeited the game.")
