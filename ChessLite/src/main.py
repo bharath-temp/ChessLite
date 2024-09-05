@@ -26,6 +26,12 @@ def main():
             break
 
         current_player = game_controller._GameController__current_player
+
+        board.update_board()
+        board.display_board()
+
+        game_controller.serialize_board_state()
+        
         print(
             f"{current_player.name}'s turn ({current_player.color.name})."
         )

@@ -1,3 +1,5 @@
+import json
+
 from src.pieces import Bishop, King, Knight, Pawn, \
                        Piece, PieceFactory, Queen, Rook
 from src.piece_manager import PieceManager
@@ -31,6 +33,9 @@ class GameController():
 
         self.__current_player = player_one
         self.__game_over = False
+
+    def get_current_player(self):
+        return self.__current_player
 
     def __switch_turn(self) -> None:
         if self.__current_player == self.__player_one:
@@ -86,3 +91,19 @@ class GameController():
 
     def is_game_over(self) -> bool:
         return self.__game_over
+
+    def serialize_board_state(self):
+        piece_state_serial = self.__piece_manager.serialize_piece_state()
+
+        player_info = {
+            "player_name": self.__current_player.name,
+            "player_color": self.__current_player.color.name
+        }
+
+        board_state = {
+            "board": json.loads(piece_state_serial),
+            "player": player_info
+        }
+
+        print(f"{json.dumps(board_state)}")
+        return board_state
