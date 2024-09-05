@@ -1,3 +1,5 @@
+import json
+
 from src.pieces import Bishop, King, Knight, Pawn, \
                        Piece, PieceFactory, Queen, Rook
 from src.utils import PieceColor, PieceType
@@ -64,3 +66,16 @@ class PieceManager():
 
         if target_piece:
             self.pieces.remove(target_piece)
+
+    def serialize_piece_state(self):
+        serial_pieces_list = []
+
+        for piece in self.pieces:
+            piece_info = {
+                "type": piece.piece_type.name,
+                "color": piece.color.name,
+                "position": {"row": piece.row, "col": piece.column}
+            }
+            serial_pieces_list.append(piece_info)
+
+        return json.dumps(serial_pieces_list)
