@@ -10,11 +10,13 @@ from src.utils import PieceColor, PieceType, PlayerType
 
 app = FastAPI()
 
+
 class MoveInput(BaseModel):
     start_row: int
     start_col: int
     end_row: int
     end_col: int
+
 
 games = {}
 
@@ -23,9 +25,11 @@ games = {}
 async def root():
     return {"message": "Hello World"}
 
+
 @app.get("/game_ids")
 async def game_ids():
     return {"message": games}
+
 
 @app.post("/new_game")
 async def create_game(player_one_name: str, player_two_name: str):
@@ -57,7 +61,8 @@ async def make_move(game_id: str, input: MoveInput):
     game_controller.handle_player_input(input.start_row, input.start_col,
                                         input.end_row, input.end_col)
 
-    next_player = game_controller.get_current_player()  # The opponent after the move
+    # The opponent after the move
+    next_player = game_controller.get_current_player()
 
     # Check if the next player is in checkmate
     if game_controller.is_checkmate():
@@ -69,9 +74,9 @@ async def make_move(game_id: str, input: MoveInput):
 
     return game_controller.serialize_board_state()
 
+
 @app.get("/current_player/{game_id}")
 async def get_current_player_color(game_id: str):
     game_controller = games[game_id]
     current_player = game_controller.get_current_player()
     return {"player_color": current_player.color.name}
-    

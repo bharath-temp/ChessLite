@@ -31,7 +31,7 @@ def main():
         board.display_board()
 
         game_controller.serialize_board_state()
-        
+
         print(
             f"{current_player.name}'s turn ({current_player.color.name})."
         )
@@ -51,7 +51,7 @@ def main():
             continue
 
         game_controller.handle_player_input(start_row, start_col,
-                                         end_row, end_col)
+                                            end_row, end_col)
         board.update_board()
         board.display_board()
 

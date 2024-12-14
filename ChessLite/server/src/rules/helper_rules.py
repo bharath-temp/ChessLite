@@ -8,6 +8,7 @@ from src.pieces import Bishop, King, Knight, Pawn, \
                        Piece, PieceFactory, Queen, Rook
 from src.utils.piece_type import PieceType
 
+
 class CheckedHelperRule(Rule):
     @override
     def validate(self, player: Player) -> bool:
@@ -17,7 +18,7 @@ class CheckedHelperRule(Rule):
 
         opp_pieces = self._piece_manager.get_opponent_pieces(player.color)
 
-        path_clear_helper = PathClearHelperRule(self._piece_manager) 
+        path_clear_helper = PathClearHelperRule(self._piece_manager)
 
         for piece in opp_pieces:
             if isinstance(piece, Pawn):
@@ -25,18 +26,22 @@ class CheckedHelperRule(Rule):
                 col_diff = abs(piece.column - king_col)
 
                 if row_diff == 1 and col_diff == 1:
-                    print(f"Pawn at {piece.row}-{piece.column} is putting you in check")
+                    print(f"Pawn at {piece.row}-{piece.column}"
+                          f"is putting you in check")
                     return True
             else:
                 if piece._validate_piece_move(king_row, king_col) and \
-                   path_clear_helper.validate(piece, player, king_row, king_col):
+                   path_clear_helper.validate(piece, player, king_row,
+                                              king_col):
                     target_piece = piece
-                    print(f"{target_piece}-{target_piece.color} {target_piece.row} {target_piece.column} put you in check")
+                    print(f"{target_piece}-{target_piece.color}"
+                          f"{target_piece.row} {target_piece.column}"
+                          f"put you in check")
                     print(f"You're in check")
                     return True
 
         return False
-        
+
 
 class PathClearHelperRule(Rule):
     @override
@@ -44,7 +49,8 @@ class PathClearHelperRule(Rule):
                  target_col: int) -> bool:
         if self.__target_square_occupied(piece, target_row,
                                          target_col) is False:
-            print(f"Piece is occupied by same color at {target_row}, {target_col}")
+            print(f"Piece is occupied by same color at {target_row},"
+                  f"{target_col}")
             return False
 
         if piece.piece_type is PieceType.KNIGHT:
@@ -79,10 +85,12 @@ class PathClearHelperRule(Rule):
 
     def __target_square_occupied(self, piece: Piece, target_row: int,
                                  target_col: int) -> bool:
-        target_piece = self._piece_manager.get_piece_at(target_row, target_col)
+        target_piece = self._piece_manager.get_piece_at(target_row,
+                                                        target_col)
         if target_piece and target_piece.color == piece.color:
-            print(f"theres a piece there {target_piece.color} {target_piece.row} {target_piece.column}")
+            print(f"theres a piece there {target_piece.color}"
+                  f"{target_piece.row}"
+                  f"{target_piece.column}")
             return False
 
         return True
-        

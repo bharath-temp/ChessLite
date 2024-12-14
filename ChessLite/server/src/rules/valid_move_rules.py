@@ -7,6 +7,7 @@ from src.players import Player
 from src.rules.rule_handler import RuleHandler
 from src.utils import PieceColor, PieceType, PlayerType
 
+
 class SameColorRule(RuleHandler):
     @override
     def validate(self, piece: Piece, player: Player, target_row: int,
@@ -57,12 +58,12 @@ class SelfCheckRule(RuleHandler):
         self._piece_manager.place_piece_at(piece, target_row, target_col)
         if self._checked_rule.validate(player):
             self._piece_manager.place_piece_at(piece, original_row,
-                                                original_col)
+                                               original_col)
             print(f"Move will cause self check")
             return False
 
         self._piece_manager.place_piece_at(piece, original_row,
-                                            original_col)
+                                           original_col)
         return super().validate(piece, player, target_row, target_col)
 
 
@@ -76,7 +77,8 @@ class CapturePieceRule(RuleHandler):
         target_piece = self._piece_manager.get_piece_at(target_row, target_col)
 
         if piece.piece_type is PieceType.PAWN:
-            if not self.__pawn_capture_rule(piece, target_piece, target_row, target_col):
+            if not self.__pawn_capture_rule(piece, target_piece,
+                                            target_row, target_col):
                 return False
 
         if (target_piece is None) or (target_piece.color != piece.color):

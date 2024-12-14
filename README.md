@@ -1,3 +1,6 @@
+[![codecov](https://codecov.io/gh/bharath-temp/ChessLite/graph/badge.svg?token=R33RW6MODW)](https://codecov.io/gh/bharath-temp/ChessLite)
+![pylint]()
+
 # ChessLite
 **ChessLite** is a modular and scalable chess engine built with clean, maintainable code adhering to SOLID principles and design patterns. This project is currently focused on building out the backend logic for a full-featured chess game, with future plans to add a frontend interface and cloud deployment.
 
@@ -57,3 +60,5 @@ make test
 # Gather coverage report
 make coverage
 ```
+
+https://codecov.io/gh/bharath-temp/ChessLite/graphs/sunburst.svg?token=R33RW6MODW
