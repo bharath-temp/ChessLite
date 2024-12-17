@@ -19,17 +19,31 @@ class GameController():
         self.__piece_manager = piece_manager
         self.__player_one = player_one
         self.__player_two = player_two
-        
-        self.__checked_helper_rule = CheckedHelperRule(self.__piece_manager)
-        self.__path_clear_helper_rule = PathClearHelperRule(self.__piece_manager)
 
-        self.__rules_chain = SameColorRule(self.__piece_manager)
-        self.__rules_chain.set_next(FundPieceMoveRule(self.__piece_manager))\
-                          .set_next(PathClearRule(self.__piece_manager, self.__path_clear_helper_rule))\
-                          .set_next(CapturePieceRule(self.__piece_manager))\
-                          .set_next(SelfCheckRule(self.__piece_manager, self.__checked_helper_rule))
+        self.__checked_helper_rule = CheckedHelperRule(
+            self.__piece_manager
+        )
+        self.__path_clear_helper_rule = PathClearHelperRule(
+                self.__piece_manager
+        )
 
-        self.__check_mated_rule = CheckMatedRule(self.__piece_manager, self.__checked_helper_rule, self.__rules_chain)
+        same_color_rule = SameColorRule(self.__piece_manager)
+        fund_move_rule = FundPieceMoveRule(self.__piece_manager)
+        path_clear_rule = PathClearRule(self.__piece_manager,
+                                        self.__path_clear_helper_rule)
+        capture_piece_rule = CapturePieceRule(self.__piece_manager)
+        self_check_rule = SelfCheckRule(self.__piece_manager,
+                                        self.__checked_helper_rule)
+
+        self.__rules_chain = same_color_rule
+        self.__rules_chain.set_next(fund_move_rule) \
+                          .set_next(path_clear_rule) \
+                          .set_next(capture_piece_rule) \
+                          .set_next(self_check_rule)
+
+        self.__check_mated_rule = CheckMatedRule(self.__piece_manager,
+                                                 self.__checked_helper_rule,
+                                                 self.__rules_chain)
 
         self.__current_player = player_one
         self.__game_over = False
@@ -44,12 +58,13 @@ class GameController():
             self.__current_player = self.__player_one
 
     def handle_player_input(self, row: int, col: int, target_row: int,
-                         target_col: int) -> None:
+                            target_col: int) -> None:
         print(f"func: get_player_input {self.__current_player.color}")
         piece = self.__piece_manager.get_piece_at(row, col)
         if self.validate_player_move(row, col, target_row, target_col):
-            capture_piece = self.__piece_manager.get_piece_at(target_row, target_col)
-            if capture_piece != None:
+            capture_piece = self.__piece_manager.get_piece_at(target_row,
+                                                              target_col)
+            if capture_piece is not None:
                 self.__piece_manager.remove_piece_at(target_row, target_col)
 
             self.__piece_manager.place_piece_at(piece, target_row,
@@ -66,7 +81,8 @@ class GameController():
 
         piece_repr = f"{piece.color} {piece.__class__.__name__}"
 
-        if not self.__rules_chain.validate(piece, self.__current_player, target_row, target_col):
+        if not self.__rules_chain.validate(piece, self.__current_player,
+                                           target_row, target_col):
             print(f"{piece_repr} move invalid")
             return False
 

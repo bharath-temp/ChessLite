@@ -4,9 +4,11 @@ from src.pieces import Piece
 from src.players import Player
 from src.piece_manager import PieceManager
 
+
 class Rule(ABC):
     """
-    Base class for all rules, both those in the chain and special rules like castling and promotion.
+    Base class for all rules, both those in the chain and special rules like
+    castling and promotion.
     """
 
     def __init__(self, piece_manager: PieceManager) -> None:
