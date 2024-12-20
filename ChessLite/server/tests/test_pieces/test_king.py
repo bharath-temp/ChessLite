@@ -58,6 +58,6 @@ def test_king_set_col_method(king_test):
 
 def test_king_set_moved_method(king_test):
     """Test the set_moved method of the King class."""
-    assert not king_test.moved  # Initially should be False
-    king_test.moved = True
-    assert king_test.moved  # After setting should be True
+    assert not king_test._move_status.moved  # Initially should be False
+    king_test._move_status.moved = True
+    assert king_test._move_status.moved  # After setting should be True
