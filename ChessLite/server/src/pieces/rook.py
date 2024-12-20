@@ -4,14 +4,14 @@ from __future__ import annotations
 from typing import override
 
 from src.pieces.chesspiece import Piece
-from src.pieces.mixins.moved_piece_mixin import MovedPieceMixin
+from src.pieces.move_status import MoveStatus
 from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
 from src.utils.piece_type import PieceType
 
 
 @PieceFactory.register_piece(PieceType.ROOK)
-class Rook(Piece, MovedPieceMixin):
+class Rook(Piece):
     """Represents a Rook chess piece.
 
     Attributes:
@@ -19,7 +19,7 @@ class Rook(Piece, MovedPieceMixin):
         _current_row (int): The current row position of the piece.
         _current_col (int): The current column position of the piece.
         _moved (bool): Tracks if the Rook has moved (inherited from
-                       MovedPieceMixin).
+                       MoveStatus).
     """
 
     def __init__(self, color: PieceColor, current_row: int, current_col: int):
@@ -31,7 +31,14 @@ class Rook(Piece, MovedPieceMixin):
             current_col (int): The initial column position of the piece.
         """
         super().__init__(color, PieceType.ROOK, current_row, current_col)
-        self._moved = False
+        self._move_status = MoveStatus()
+
+    @override
+    def _on_position_changed(self) -> None:
+        """Overrides move checking function, ensuring that
+           piece moves are recorded.
+        """
+        self._move_status.moved = True
 
     @override
     def _validate_piece_move(self, dest_row: int, dest_col: int) -> bool:

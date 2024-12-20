@@ -58,8 +58,7 @@ class PieceManager():
 
     def place_piece_at(self, piece: Piece, target_row: int,
                        target_col: int) -> None:
-        piece.row = target_row
-        piece.column = target_col
+        piece.set_position(target_row, target_col)
 
     def remove_piece_at(self, target_row: int, target_col: int) -> None:
         target_piece = self.get_piece_at(target_row, target_col)

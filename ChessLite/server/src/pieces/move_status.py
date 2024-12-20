@@ -1,7 +1,7 @@
-class MovedPieceMixin():
-    """Mixin class for pieces that track if they've moved.
+class MoveStatus():
+    """Class for pieces that track if they've moved.
 
-    This mixin overrides the `_on_position_changed` hook method
+    This class overrides the `_on_position_changed` hook method
     to update the moved status when the piece's position changes.
 
     Attributes:
@@ -9,6 +9,12 @@ class MovedPieceMixin():
     """
 
     _moved = False
+
+    def __init__(self) -> None:
+        """ Ensure all piece get their own tracked moved var
+            initialize to False
+        """
+        self._moved = False
 
     @property
     def moved(self) -> bool:
@@ -27,12 +33,3 @@ class MovedPieceMixin():
             has_moved (bool): True if the piece has moved, False otherwise.
         """
         self._moved = has_moved
-
-    def _on_position_changed(self) -> None:
-        """Overrides the hook to update the moved status when the
-           position changes.
-        """
-        if self.moved:
-            pass
-
-        self.moved = True

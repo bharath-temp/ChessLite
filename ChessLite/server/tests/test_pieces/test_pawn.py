@@ -59,6 +59,6 @@ def test_pawn_set_col_method(pawn_test):
 
 def test_pawn_set_moved_method(pawn_test):
     """Test the set_moved method of the pawn class."""
-    assert not pawn_test.moved  # Initially should be False
-    pawn_test.moved = True
-    assert pawn_test.moved  # After setting should be True
+    assert not pawn_test._move_status.moved  # Initially should be False
+    pawn_test._move_status.moved = True
+    assert pawn_test._move_status.moved  # After setting should be True

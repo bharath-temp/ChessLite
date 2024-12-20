@@ -58,6 +58,6 @@ def test_rook_set_col_method(rook_test):
 
 def test_rook_set_moved_method(rook_test):
     """Test the set_moved method of the rook class."""
-    assert not rook_test.moved  # Initially should be False
-    rook_test.moved = True
-    assert rook_test.moved  # After setting should be True
+    assert not rook_test._move_status.moved  # Initially should be False
+    rook_test._move_status.moved = True
+    assert rook_test._move_status.moved  # After setting should be True

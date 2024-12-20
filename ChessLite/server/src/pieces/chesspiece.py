@@ -84,7 +84,7 @@ class Piece(ABC):
     def _on_position_changed(self) -> None:
         """Hook method called when the piece's position changes.
 
-           Intended to be overridden by subclasses or mixins that need
+           Intended to be overridden by subclasses that need
            to perform actions when the position is updated.
         """
         pass
