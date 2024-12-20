@@ -4,14 +4,14 @@ from __future__ import annotations
 from typing import override
 
 from src.pieces.chesspiece import Piece
-from src.pieces.mixins.moved_piece_mixin import MovedPieceMixin
+from src.pieces.move_status import MoveStatus
 from src.pieces.piece_factory import PieceFactory
 from src.utils.colors import PieceColor
 from src.utils.piece_type import PieceType
 
 
 @PieceFactory.register_piece(PieceType.PAWN)
-class Pawn(Piece, MovedPieceMixin):
+class Pawn(Piece):
     """Represents a Pawn chess piece.
 
     Attributes:
@@ -19,7 +19,7 @@ class Pawn(Piece, MovedPieceMixin):
         _current_row (int): The current row position of the piece.
         _current_col (int): The current column position of the piece.
         _moved (bool): Tracks if the Rook has moved (inherited from
-                       MovedPieceMixin).
+                       MoveStatus).
     """
 
     def __init__(self, color: PieceColor, current_row: int, current_col: int):
@@ -31,6 +31,14 @@ class Pawn(Piece, MovedPieceMixin):
             current_col (int): The initial column position of the piece.
         """
         super().__init__(color, PieceType.PAWN, current_row, current_col)
+        self._move_status = MoveStatus()
+
+    @override
+    def _on_position_changed(self) -> None:
+        """Overrides move checking function, ensuring that
+           piece moves are recorded.
+        """
+        self._move_status.moved = True
 
     def _can_promote(self) -> bool:
         """Checks if the Pawn can be promoted.
@@ -80,10 +88,9 @@ class Pawn(Piece, MovedPieceMixin):
             return True
 
         # Pawns can move forward two squares if it hasn't moved yet.
-        if (row_change == 2) and (col_change == 0):
-            if ((self.color == PieceColor.WHITE) and (self.row == 6) or
-                    (self.color == PieceColor.BLACK) and (self.row == 1)):
-                return True
+        if (not self._move_status.moved and
+                ((row_change == 2) and (col_change == 0))):
+            return True
 
         # Pawns can move diagonally to take enemy piece or via en pessant
         if (row_change == 1) and (col_change == 1):
