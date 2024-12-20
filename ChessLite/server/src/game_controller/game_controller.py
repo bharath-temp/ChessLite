@@ -45,7 +45,7 @@ class GameController():
                                                  self.__checked_helper_rule,
                                                  self.__rules_chain)
 
-        self.__current_player = player_one
+        self.__current_player = self.__player_one
         self.__game_over = False
 
     def get_current_player(self):
@@ -121,5 +121,4 @@ class GameController():
             "player": player_info
         }
 
-        print(f"{json.dumps(board_state)}")
         return board_state
