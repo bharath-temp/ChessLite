@@ -31,7 +31,6 @@ class Pawn(Piece, MovedPieceMixin):
             current_col (int): The initial column position of the piece.
         """
         super().__init__(color, PieceType.PAWN, current_row, current_col)
-        self._moved = False
 
     def _can_promote(self) -> bool:
         """Checks if the Pawn can be promoted.
@@ -81,8 +80,10 @@ class Pawn(Piece, MovedPieceMixin):
             return True
 
         # Pawns can move forward two squares if it hasn't moved yet.
-        if (row_change == 2) and (col_change == 0) and (self.moved is False):
-            return True
+        if (row_change == 2) and (col_change == 0):
+            if ((self.color == PieceColor.WHITE) and (self.row == 6) or
+                    (self.color == PieceColor.BLACK) and (self.row == 1)):
+                return True
 
         # Pawns can move diagonally to take enemy piece or via en pessant
         if (row_change == 1) and (col_change == 1):

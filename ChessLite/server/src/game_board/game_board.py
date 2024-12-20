@@ -15,7 +15,13 @@ class GameBoard():
         self.__piece_manager = piece_manager
 
     def display_board(self) -> None:
-        for row in self.board:
+        # Display column numbers on top
+        column_numbers = " " + " ".join(
+            str(i).center(CELL_WIDTH) for i in range(BOARD_SIZE)
+        )
+        print(column_numbers)
+
+        for row_index, row in enumerate(self.board):
             display_row = []
             for cell in row:
                 if cell is None:
@@ -23,9 +29,12 @@ class GameBoard():
                 else:
                     centered_cell = str(cell).center(CELL_WIDTH)
                     display_row.append(centered_cell)
-            print(f"{"|".join(display_row)}")
-            print(f"{"-" * (CELL_WIDTH * BOARD_SIZE + (BOARD_SIZE - 1))}")
-        print(f"\n")
+            print(f"{row_index} |" + "|".join(display_row) + f"| {row_index}")
+            print(f"  {'-' * (CELL_WIDTH * BOARD_SIZE + (BOARD_SIZE - 1))}")
+
+        # Display column numbers on the bottom
+        print(column_numbers)
+        print("\n")
 
     def update_board(self) -> None:
         self.board = [[None for _ in range(BOARD_SIZE)]

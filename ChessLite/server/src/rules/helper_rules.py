@@ -49,8 +49,6 @@ class PathClearHelperRule(Rule):
                  target_col: int) -> bool:
         if self.__target_square_occupied(piece, target_row,
                                          target_col) is False:
-            print(f"Piece is occupied by same color at {target_row},"
-                  f"{target_col}")
             return False
 
         if piece.piece_type is PieceType.KNIGHT:
@@ -88,7 +86,7 @@ class PathClearHelperRule(Rule):
         target_piece = self._piece_manager.get_piece_at(target_row,
                                                         target_col)
         if target_piece and target_piece.color == piece.color:
-            print(f"theres a piece there {target_piece.color}"
+            print(f"theres a friendly piece there {target_piece.color}"
                   f"{target_piece.row}"
                   f"{target_piece.column}")
             return False
