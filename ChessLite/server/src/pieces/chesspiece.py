@@ -98,7 +98,7 @@ class Piece(ABC):
             dest_col (int): The new column position.
         """
         self.row = dest_row
-        self.col = dest_col
+        self.column = dest_col
         self._on_position_changed()
 
     def _in_bounds_check(self, row: int, col: int) -> bool:
