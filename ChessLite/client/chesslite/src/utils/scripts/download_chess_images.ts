@@ -12,19 +12,31 @@ const TARGET_DIR = path.resolve(__dirname, "../src/public/assets/chess");
 const CHESS_PIECE_MAP = {
     white: {
         king: "4/42/Chess_klt45.svg",
+        flipped_king: "1/17/Chess_flt45.svg",
         queen: "1/15/Chess_qlt45.svg",
+        flipped_queen: "f/f0/Chess_glt45.svg",
         rook: "7/72/Chess_rlt45.svg",
+        flipped_rook: "d/d0/Chess_mlt45.svg",
         bishop: "b/b1/Chess_blt45.svg",
+        flipped_bishop: "7/7c/Chess_Blt45.svg",
         knight: "7/70/Chess_nlt45.svg",
+        flipped_knight: "1/17/Chess_Nlt45.svg",
         pawn: "4/45/Chess_plt45.svg",
+        flipped_pawn: "0/08/Chess_hlt45.svg",
     },
     black: {
         king: "f/f0/Chess_kdt45.svg",
+        flipped_king: "2/2c/Chess_fdt45.svg",
         queen: "4/47/Chess_qdt45.svg",
+        flipped_queen: "3/31/Chess_gdt45.svg",
         rook: "f/ff/Chess_rdt45.svg",
+        flipped_rook: "c/cd/Chess_mdt45.svg",
         bishop: "9/98/Chess_bdt45.svg",
+        flipped_bishop: "5/5a/Chess_Bdt45.svg",
         knight: "e/ef/Chess_ndt45.svg",
+        flipped_knight: "4/43/Chess_Ndt45.svg",
         pawn: "c/c7/Chess_pdt45.svg",
+        flipped_pawn: "d/dd/Chess_hdt45.svg",
     },
 };
 
@@ -44,30 +56,11 @@ async function downloadImage(fileName: string, targetPath: string): Promise<void
     }
 }
 
-async function rotateAsset(originalPath: string, rotatedPath: string): Promise<void> {
-    try {
-        console.log(`Rotating: ${originalPath}`);
-        const buffer = fs.readFileSync(originalPath);
-        const rotatedBuffer = await sharp(buffer).rotate(180).toBuffer();
-        fs.writeFileSync(rotatedPath, rotatedBuffer);
-        console.log(`Saved rotated: ${rotatedPath}`);
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error(`Failed to rotate ${originalPath}: ${error.message}`);
-        } else {
-            console.error(`Failed to rotate ${originalPath}: ${error}`);
-        }
-    }
-}
-
 async function downloadAndGenerateAssets(): Promise<void> {
     for (const [color, pieces] of Object.entries(CHESS_PIECE_MAP)) {
         for (const [type, fileName] of Object.entries(pieces)) {
             const targetPath = path.join(TARGET_DIR, `${color}_${type}.svg`);
-            const rotatedPath = path.join(TARGET_DIR, `${color}_${type}_flipped.svg`);
-            
             await downloadImage(fileName, targetPath);
-            await rotateAsset(targetPath, rotatedPath);
         }
     }
 }
